@@ -3,7 +3,10 @@
   "title": "Appbase",
   "version": "0.0.0",
   "main": "index.js",
-  "scripts": {},
+  "scripts": {
+    "jasmine": "node_modules/.bin/jasmine",
+    "test": "node_modules/.bin/jasmine"
+  },
   "repository": {
     "type": "git",
     "url": "git@github.com:tdoee/Appbase.git"
@@ -28,5 +31,10 @@
     "babel-preset-es2015": "^6.9.0",
     "babel-register": "^6.9.0",
     "jasmine": "^2.4.1"
+  },
+  "babel": {
+    "presets": [
+      "es2015"
+    ]
   }
 }
