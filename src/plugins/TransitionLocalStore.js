@@ -1,10 +1,14 @@
-class TransitionLocalStorage {
+import { appbaseSymbol } from '../AppBase'
+
+export class TransitionLocalStorage {
 
 	constructor( app ) {
-		this.appBaseSymbol = app;
+		this[appbaseSymbol] = app;
 	}
 
-	appBase() {}
+	appbase() {
+		return this[ appbaseSymbol ]
+	}
 }
 
 export default TransitionLocalStorage

@@ -1,10 +1,14 @@
-class Transition {
+import { appbaseSymbol } from '../AppBase'
+
+export class Transition {
 
 	constructor( app ) {
-		this.appBaseSymbol = app;
+		this[appbaseSymbol] = app;
 	}
 
-	appBase() {}
+	appbase() {
+		return this[ appbaseSymbol ]
+	}
 
 }
 

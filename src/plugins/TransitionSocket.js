@@ -1,10 +1,14 @@
-class TransitionSocket {
+import { appbaseSymbol } from '../AppBase'
+
+export class TransitionSocket {
 
 	constructor( app ) {
-		this.appBaseSymbol = app;
+		this[appbaseSymbol] = app;
 	}
 
-	appBase() {}
+	appbase() {
+		return this[ appbaseSymbol ]
+	}
 }
 
 export default TransitionSocket

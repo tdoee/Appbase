@@ -1,4 +1,4 @@
-const appBaseSymbol = Symbol( "AppBase" );
+const appbaseSymbol = Symbol( "AppBase" );
 
 export class AppBase {
 	transport() {}
@@ -6,6 +6,6 @@ export class AppBase {
 	session() {}
 }
 
-export { appBaseSymbol }
+export { appbaseSymbol }
 
 export default AppBase
