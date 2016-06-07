@@ -1,0 +1,22 @@
+{
+  "name": "td-base",
+  "version": "0.0.0",
+  "main": "index.js",
+  "scripts": {},
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:tdoee/Muffin.git"
+  },
+  "author": {
+    "name": "Jonathan Delgado",
+    "email": "hi@jon.soy",
+    "url": "http://jon.soy/"
+  },
+  "contributors": {
+    
+  },
+  "license": "MIT",
+  "homepage": "https://github.com/tdoee/Muffin#readme",
+  "keywords": [],
+  "description": ""
+}
