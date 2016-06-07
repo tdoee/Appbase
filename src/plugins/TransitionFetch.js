@@ -1,10 +1,10 @@
-class TransitionFetch{
+class TransitionFetch {
 
-  constructor(app){
-    this.appBaseSymbol=app;
-  }
+	constructor( app ) {
+		this.appBaseSymbol = app;
+	}
 
-  appBase(){}
+	appBase() {}
 }
 
 export default TransitionFetch

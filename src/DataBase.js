@@ -1,11 +1,11 @@
 class DataBase {
 
-  constructor(app){
-    this.appBaseSymbol=app;
-  }
-  
-  ref(reference){}
-  appBase(){}
+	constructor( app ) {
+		this.appBaseSymbol = app;
+	}
+
+	ref( reference ) {}
+	appBase() {}
 
 }
 

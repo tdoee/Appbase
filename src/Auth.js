@@ -1,10 +1,14 @@
-class Auth {
+import { appBaseSymbol } from '../AppBase'
 
-  constructor(app){
-    this.appBaseSymbol=app;
-  }
-  
-  appBase(){}
+export class Auth {
+
+	constructor( app ) {
+		this[ appBaseSymbol ] = app;
+	}
+
+	appbase() {
+		return this[ appBaseSymbol ]
+	}
 
 }
 

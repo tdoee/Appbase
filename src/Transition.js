@@ -1,10 +1,10 @@
-class Transition{
+class Transition {
 
-  constructor(app){
-    this.appBaseSymbol=app;
-  }
-  
-  appBase(){}
+	constructor( app ) {
+		this.appBaseSymbol = app;
+	}
+
+	appBase() {}
 
 }
 

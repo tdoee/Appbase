@@ -1,11 +1,11 @@
-class AppBase {
+const appBaseSymbol = Symbol( "AppBase" );
 
-  const appBaseSymbol= Symbol("AppBase");
-
-  transport(){}
-  dataBase(){}
-  session(){}
-
+export class AppBase {
+	transport() {}
+	dataBase() {}
+	session() {}
 }
+
+export { appBaseSymbol }
 
 export default AppBase

@@ -1,10 +1,10 @@
 class Session {
 
-  constructor(app){
-    this.appBaseSymbol=app;
-  }
-  
-  appBase(){}
+	constructor( app ) {
+		this.appBaseSymbol = app;
+	}
+
+	appBase() {}
 
 }
 

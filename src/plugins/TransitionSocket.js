@@ -1,10 +1,10 @@
-class TransitionSocket{
+class TransitionSocket {
 
-  constructor(app){
-    this.appBaseSymbol=app;
-  }
+	constructor( app ) {
+		this.appBaseSymbol = app;
+	}
 
-  appBase(){}
+	appBase() {}
 }
 
 export default TransitionSocket

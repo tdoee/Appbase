@@ -1,10 +1,10 @@
-class Reference{
+class Reference {
 
-  constructor(app){
-    this.appBaseSymbol=app;
-  }
-  
-  appBase(){}
+	constructor( app ) {
+		this.appBaseSymbol = app;
+	}
+
+	appBase() {}
 
 }
 
