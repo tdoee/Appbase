@@ -12,9 +12,13 @@
     "email": "hi@jon.soy",
     "url": "http://jon.soy/"
   },
-  "contributors": {
-    
-  },
+  "contributors": [
+    {
+      "name": "Jonathan Ramirez",
+      "email": "ramirez.jonathan.18@gmail.com",
+      "url": "https://github.com/Jona93"
+    }
+  ],
   "license": "MIT",
   "homepage": "https://github.com/tdoee/Appbase#readme",
   "keywords": [],
