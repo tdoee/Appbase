@@ -1,10 +1,14 @@
-class Session {
+import { appbaseSymbol } from '../AppBase'
+
+export class Session {
 
 	constructor( app ) {
-		this.appBaseSymbol = app;
+		this[appbaseSymbol] = app;
 	}
 
-	appBase() {}
+	appbase() {
+		return this[ appbaseSymbol ]
+	}
 
 }
 

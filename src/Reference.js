@@ -1,10 +1,14 @@
-class Reference {
+import { appbaseSymbol } from '../AppBase'
+
+export class Reference {
 
 	constructor( app ) {
-		this.appBaseSymbol = app;
+		this[appbaseSymbol] = app;
 	}
 
-	appBase() {}
+	appbase() {
+		return this[ appbaseSymbol ]
+	}
 
 }
 

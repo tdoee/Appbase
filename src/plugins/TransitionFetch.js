@@ -1,10 +1,14 @@
-class TransitionFetch {
+import { appbaseSymbol } from '../AppBase'
+
+export class TransitionFetch {
 
 	constructor( app ) {
-		this.appBaseSymbol = app;
+		this[appbaseSymbol] = app;
 	}
 
-	appBase() {}
+	appbase() {
+		return this[ appbaseSymbol ]
+	}
 }
 
 export default TransitionFetch
