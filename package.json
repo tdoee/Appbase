@@ -1,11 +1,11 @@
 {
-  "name": "td-base",
+  "name": "Appbase",
   "version": "0.0.0",
   "main": "index.js",
   "scripts": {},
   "repository": {
     "type": "git",
-    "url": "git@github.com:tdoee/Muffin.git"
+    "url": "git@github.com:tdoee/Appbase.git"
   },
   "author": {
     "name": "Jonathan Delgado",
@@ -16,7 +16,7 @@
     
   },
   "license": "MIT",
-  "homepage": "https://github.com/tdoee/Muffin#readme",
+  "homepage": "https://github.com/tdoee/Appbase#readme",
   "keywords": [],
   "description": ""
 }
