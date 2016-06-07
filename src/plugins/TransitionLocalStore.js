@@ -1,4 +1,4 @@
-import { appbaseSymbol } from '../AppBase'
+import { appbaseSymbol } from '../Appbase'
 
 export class TransitionLocalStorage {
 
