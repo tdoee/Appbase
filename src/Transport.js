@@ -1,9 +1,9 @@
 import { appbaseSymbol } from './Appbase'
 
-export class Transition {
+export class Transport {
 
 	constructor( app ) {
-		this[appbaseSymbol] = app;
+		this[ appbaseSymbol ] = app;
 	}
 
 	appbase() {
@@ -12,4 +12,4 @@ export class Transition {
 
 }
 
-export default Transition
+export default Transport

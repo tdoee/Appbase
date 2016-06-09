@@ -1,9 +1,9 @@
 import { appbaseSymbol } from '../Appbase'
 
-export class TransitionLocalStorage {
+export class TransportFetch {
 
 	constructor( app ) {
-		this[appbaseSymbol] = app;
+		this[ appbaseSymbol ] = app;
 	}
 
 	appbase() {
@@ -11,4 +11,4 @@ export class TransitionLocalStorage {
 	}
 }
 
-export default TransitionLocalStorage
+export default TransportFetch

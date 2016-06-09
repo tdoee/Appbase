@@ -1,9 +1,9 @@
 import { appbaseSymbol } from '../Appbase'
 
-export class TransitionSocket {
+export class TransportSocket {
 
 	constructor( app ) {
-		this[appbaseSymbol] = app;
+		this[ appbaseSymbol ] = app;
 	}
 
 	appbase() {
@@ -11,4 +11,4 @@ export class TransitionSocket {
 	}
 }
 
-export default TransitionSocket
+export default TransportSocket
