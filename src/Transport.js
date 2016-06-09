@@ -1,9 +1,15 @@
 import { appbaseSymbol } from './Appbase'
+import url from 'url'
 
 export class Transport {
 
-	constructor( app ) {
+	constructor( app, url ) {
 		this[ appbaseSymbol ] = app;
+		this.url = url
+	}
+
+	resolveUrl( urlToResolve ) {
+		return url.resolve( this.url, url )
 	}
 
 	appbase() {
