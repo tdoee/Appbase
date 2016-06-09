@@ -33,6 +33,7 @@ describe( 'Levanta las pruebas al transporter', function() {
 		// Obitiene el fetch element
 		fetch( 'http://localhost:9000/' )
 			.then( ( res ) => {
+				// Una prueba 
 				expect( true ).toEqual( true )
 				next()
 			} )
