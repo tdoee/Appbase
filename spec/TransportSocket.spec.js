@@ -1,17 +1,22 @@
 import server from 'socket.io'
 import IO from 'socket.io-client'
 import TransportSocket from '../src/plugins/TransportSocket'
+import middlewareTransportSocket from '../src/drivers/SocketIO'
 
 describe( 'Levanta las pruebas al transporter', function() {
 	let io
 	let closeServer = () => {}
-	let transporter
+	let transporterClient
+	let transporterServer
 
 	/*
 	Despliega el servidor
 	 */
 	beforeAll( function( done ) {
 		io = server( 9001 )
+
+		// Inicializa el transporter del servidor
+		transporterServer = middlewareTransportSocket( io )
 
 		closeServer = () => io.close()
 		done()
@@ -39,10 +44,10 @@ describe( 'Levanta las pruebas al transporter', function() {
 			} )
 		} )
 
-		transporter = new TransportSocket( null, 'http://localhost:9001/' )
-		expect( transporter ).toBeDefined()
-		expect( transporter instanceof TransportSocket ).toBeTruthy()
-		expect( e => JSON.stringify( transporter ) ).not.toThrow()
+		transporterClient = new TransportSocket( null, 'http://localhost:9001/' )
+		expect( transporterClient ).toBeDefined()
+		expect( transporterClient instanceof TransportSocket ).toBeTruthy()
+		expect( e => JSON.stringify( transporterClient ) ).not.toThrow()
 	} )
 
 	it( 'provando request function...', function( next ) {
@@ -58,7 +63,7 @@ describe( 'Levanta las pruebas al transporter', function() {
 			} )
 		} )
 
-		transporter
+		transporterClient
 			.request( {
 				saludo: 'hola'
 			} )
@@ -67,9 +72,5 @@ describe( 'Levanta las pruebas al transporter', function() {
 				next()
 			} )
 	}, 4000 )
-
-	it('', function() {
-		
-	});
 
 } )

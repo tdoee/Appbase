@@ -52,9 +52,9 @@ export class TransportSocket extends Transport {
 	 * | Client | <========> | Server |
 	 *  --------              --------
 	 */
-	emitCallbackParsePromise( name, data ) {
+	emitCallbackParsePromise( name, data, sendCb = true ) {
 		return new Promise( ( resolve, reject ) => {
-			this.io.emit( name, data, ( err, data ) => {
+			let cb = ( err, data ) => {
 				if ( err ) {
 					let e = new Error( err.message )
 					e.code = err.code
@@ -62,7 +62,11 @@ export class TransportSocket extends Transport {
 				} else {
 					resolve( data )
 				}
-			} )
+			}
+			this.io.emit( name, data, sendCb && cb )
+			if ( sendCb == false ) {
+				resolve( {} )
+			}
 		} )
 	}
 
@@ -70,6 +74,30 @@ export class TransportSocket extends Transport {
 		return this
 			.afterInit()
 			.then( () => this.emitCallbackParsePromise( 'request', data ) )
+	}
+
+	push( data ) {
+		return this
+			.afterInit()
+			.then( () => this.emitCallbackParsePromise( 'push', data, false ) )
+	}
+	update( data ) {
+		return this
+			.afterInit()
+			.then( () => this.emitCallbackParsePromise( 'update', data, false ) )
+	}
+	set( data ) {
+		return this
+			.afterInit()
+			.then( () => this.emitCallbackParsePromise( 'set', data, false ) )
+	}
+	remove( data ) {
+		return this
+			.afterInit()
+			.then( () => this.emitCallbackParsePromise( 'remove', data, false ) )
+	}
+	value( data ) {
+		
 	}
 
 }
