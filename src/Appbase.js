@@ -7,7 +7,7 @@ const versionAppbase = SemVer( pkg.version )
 
 export class Appbase {
 	constructor() {
-
+		this.options = {}
 	}
 
 	/**
@@ -34,14 +34,20 @@ export class Appbase {
 			}
 		}
 
+		// Set option URL
+		this.options.URL = URL
+
+		// Set option apiKey
+		this.options.apiKey = apiKey
+
 		return this
 	}
 
 	get VERSION() {
 		return versionAppbase
 	}
-	transport() {}
-	dataBase() {}
+
+	database() {}
 	session() {}
 }
 
