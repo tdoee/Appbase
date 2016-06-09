@@ -17,6 +17,8 @@ export class Transport {
 	get( path, defaultValue = undefined ) {}
 	has( path ) {}
 	delete( path ) {}
+	save() {}
+	clear() {}
 
 }
 
