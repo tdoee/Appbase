@@ -46,7 +46,6 @@ describe( 'Levanta las pruebas al transporter', function() {
 	} )
 
 	it( 'provando request function...', function( next ) {
-
 		/*
 		Escucha la nueva conexión y pregunta cuando se realiza un nuevo request
 		 */
@@ -68,5 +67,9 @@ describe( 'Levanta las pruebas al transporter', function() {
 				next()
 			} )
 	}, 4000 )
+
+	it('', function() {
+		
+	});
 
 } )
