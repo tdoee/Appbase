@@ -36,5 +36,8 @@
     "presets": [
       "es2015"
     ]
+  },
+  "dependencies": {
+    "semver": "^5.1.0"
   }
 }
