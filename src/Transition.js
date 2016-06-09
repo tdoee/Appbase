@@ -1,4 +1,4 @@
-import { appbaseSymbol } from '../Appbase'
+import { appbaseSymbol } from './Appbase'
 
 export class Transition {
 
