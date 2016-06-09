@@ -1,6 +1,6 @@
 import { appbaseSymbol } from '../Appbase'
 
-export class TransportLocalStorage {
+export class StoreLocalStore {
 
 	constructor( app ) {
 		this[appbaseSymbol] = app;
@@ -11,4 +11,4 @@ export class TransportLocalStorage {
 	}
 }
 
-export default TransportLocalStorage
+export default StoreLocalStore
