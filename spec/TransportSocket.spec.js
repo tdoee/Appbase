@@ -30,6 +30,15 @@ describe( 'Levanta las pruebas al transporter', function() {
 	} )
 
 	it( 'crando un `transport`...', function() {
+
+		// Detectando cuando se inicialice el Transport
+		io.on( 'connect', function( socket ) {
+			socket.on( 'update_header', function( data, cb ) {
+				expect( typeof data ).toEqual( 'object' );
+				cb( null, { status: 'ok' } )
+			} )
+		} )
+
 		transporter = new TransportSocket( null, 'http://localhost:9001/' )
 		expect( transporter ).toBeDefined()
 		expect( transporter instanceof TransportSocket ).toBeTruthy()

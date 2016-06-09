@@ -3,11 +3,42 @@ import Transport from '../Transport'
 import IO from 'socket.io-client'
 
 let IOSymbol = Symbol( "IO" )
+let IsInit = Symbol( 'initialized' )
+let initializedProcess = Symbol( 'Initialized Process' )
 
 export class TransportSocket extends Transport {
 	constructor( app, url ) {
 		super( app, url )
 		this[ IOSymbol ] = IO( url )
+		this[ initializedProcess ] = Promise.reject( new Error( 'Not Initialized' ) )
+		this[ IsInit ] = false
+		this.init()
+	}
+
+	isInit() {
+		return this[ IsInit ] === true
+	}
+
+	/*
+	Enviá la opciones al servidor
+	 */
+	updateHeadersHeaders() {
+		this[ initializedProcess ] = this
+			.emitCallbackParsePromise( 'update_header', {} )
+	}
+
+	/*
+	 * Inicia con el servidor las opciones de cabecera
+	 */
+	init() {
+		if ( !this.isInit() ) {
+			this[ IsInit ] = true
+			this.updateHeadersHeaders()
+		}
+	}
+
+	afterInit() {
+		return this[ initializedProcess ]
 	}
 
 	get io() {
@@ -15,18 +46,15 @@ export class TransportSocket extends Transport {
 	}
 
 	/**
-	 * Obtiene una respuesta del trans emitir una señar de envio servidor.
+	 * Obtiene una respuesta del tras emitir una señar de envio servidor.
 	 *
-	 *  --------   {JSON}   --------
-	 * | Client | <======> | Server |
-	 *  --------            --------
+	 *  --------   { JSON }   --------
+	 * | Client | <========> | Server |
+	 *  --------              --------
 	 */
-	request( data ) {
-		// console.log( `TransportSocket#request(data = ${JSON.stringify(data)})` )
+	emitCallbackParsePromise( name, data ) {
 		return new Promise( ( resolve, reject ) => {
-			// console.log( `Socket#emit('request', data = ${JSON.stringify(data)}, cb(err, data)) ` )
-			this.io.emit( 'request', data, ( err, data ) => {
-				// console.log( `Socket#emit('request', data = ${JSON.stringify(data)}, cb(err, data)) = cb(err = ${JSON.stringify(err)}, data = ${JSON.stringify(data)})` )
+			this.io.emit( name, data, ( err, data ) => {
 				if ( err ) {
 					let e = new Error( err.message )
 					e.code = err.code
@@ -36,6 +64,12 @@ export class TransportSocket extends Transport {
 				}
 			} )
 		} )
+	}
+
+	request( data ) {
+		return this
+			.afterInit()
+			.then( () => this.emitCallbackParsePromise( 'request', data ) )
 	}
 
 }
