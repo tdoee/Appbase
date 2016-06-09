@@ -23,6 +23,10 @@ describe('Levanta las pruebas al transporter', function() {
             res.send(test)
         })
 
+				emulateApp.use('/test', function functionName(req, res, next) {
+						console.log(req.body);
+				})
+
         let server = emulateApp.listen(9000, function() {
             console.log( "Ready Server port 9000" )
             done()
@@ -57,6 +61,24 @@ describe('Levanta las pruebas al transporter', function() {
 				})
 		})
 
+		it('metodo push en transport fetch', function() {
+				let data = {name: "jona",age: 23}
+				transporter.request(data).then(() => {})
+		})
 
+		it('metodo update en transport fetch', function() {
+				let data = {name: "jona",age: 23}
+				transporter.request(data).then(() => {})
+		})
+
+		it('metodo set en transport fetch', function() {
+				let data = {name: "jona",age: 23}
+				transporter.request(data).then((res) => {})
+		})
+
+		it('metodo remove en transport fetch', function() {
+				let data = {name: "jona",age: 23}
+				transporter.request(data).then((res) => {})
+		})
 
 })
