@@ -17,7 +17,7 @@ export class Appbase {
 	 * @param  {String} [options.URL = ]     Url del servicio a utilizar.
 	 * @return {Appbase}                Aplicación ya configurada.
 	 */
-	initialize( { apiKey, URL = null } ) {
+	initialize( { apiKey, url: URL = null } ) {
 		/*
 		 * En caso de usar un browser utiliza 
 		 */
@@ -35,7 +35,7 @@ export class Appbase {
 		}
 
 		// Set option URL
-		this.options.URL = URL
+		this.options.url = URL
 
 		// Set option apiKey
 		this.options.apiKey = apiKey
