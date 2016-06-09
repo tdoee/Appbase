@@ -1,10 +1,12 @@
 import { Appbase as AppbaseAsMember } from '../src/Appbase'
 import Appbase from '../src/Appbase'
 import pkg from '../package.json'
-import semver from 'semver'
+import SemVer from 'semver'
 
 
 describe( `Carga 'Appbase'`, function() {
+	let app
+
 	it( `\`import Appbase from 'Appbase'\` ...`, function() {
 		// Si  es definido Appbase
 		expect( Appbase ).toBeDefined();
@@ -16,6 +18,22 @@ describe( `Carga 'Appbase'`, function() {
 	} )
 
 	it( 'Load version number...', function() {
-		expect( semver.eq( Appbase.VERSION, pkg.version ) ).toEqual( true )
-	} );
+		expect( SemVer.eq( Appbase.VERSION, pkg.version ) ).toEqual( true )
+	} )
+
+	it( 'app.initialize()...', function() {
+		let appl = new Appbase()
+		appl.initialize( {
+			apiKey: '...',
+		} )
+		expect( appl instanceof Appbase ).toEqual( true );
+	} )
+
+	it( 'Appbase.initialize()...', function() {
+		app = Appbase.initialize( {
+			apiKey: '...',
+		} )
+		expect( app instanceof Appbase ).toEqual( true );
+	} )
+
 } )
