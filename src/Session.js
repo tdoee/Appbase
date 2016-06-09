@@ -1,5 +1,4 @@
 import { appbaseSymbol } from '../Appbase'
-import { app } from '../Appbase'
 
 export class Session {
 
