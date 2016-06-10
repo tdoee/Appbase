@@ -4,81 +4,109 @@ import bodyParser from 'body-parser'
 import TransportFetch from '../src/plugins/TransportFetch'
 
 describe('Levanta las pruebas al transporter', function() {
-    let emulateApp
-    let closeServer = () => {}
+  let emulateApp
+  let closeServer = () => {}
 
-    /*
-    Despliega el servidor
-     */
-    beforeAll(function(done) {
-        emulateApp = express()
-        emulateApp.use(bodyParser.json())
+  /*
+  Despliega el servidor
+  */
+  beforeAll(function(done) {
+    emulateApp = express()
 
-        emulateApp.use('/', function functionName(req, res, next) {
-            console.log(req.body);
-            let test = {
-                name: "respuesta server",
-                age: 23
-            }
-            res.send(test)
-        })
+    emulateApp.use(bodyParser.json())
 
-				emulateApp.use('/test', function functionName(req, res, next) {
-						console.log(req.body);
-				})
-
-        let server = emulateApp.listen(9000, function() {
-            console.log( "Ready Server port 9000" )
-            done()
-        })
-
-        closeServer = server.close.bind(server)
+    emulateApp.use('/', function functionName(req, res, next) {
+      //console.log(req.body);
+      let test = {
+        name: "respuesta server",
+        age: 23
+      }
+      res.send(test)
     })
 
-    /*
-    Cierra el servidor
-     */
-    afterAll(function(done) {
-        closeServer()
-        done()
+    let server = emulateApp.listen(9000, function() {
+      //console.log( "Ready Server port 9000" )
+      done()
     })
 
+    closeServer = server.close.bind(server)
+  })
 
-    it('import TransportFetch from appbase-plugins-TransportSocket', function() {
-        expect(TransportFetch).toBeDefined()
+  /*
+  Cierra el servidor
+  */
+  afterAll(function(done) {
+    closeServer()
+    done()
+  })
+
+  it('import TransportFetch from appbase-plugins-TransportSocket', function() {
+    expect(TransportFetch).toBeDefined()
+  })
+
+
+  const transporter = new TransportFetch(null,'http://localhost:9000')
+
+  it('crear un transport fetch', function() {
+    expect( transporter instanceof TransportFetch ).toBeTruthy()
+  })
+
+  it('metodo request en transport fetch', function() {
+    let data = {name: "jona",age: 23}
+    transporter.request(data).then((res) => {
+      expect( res.name ).toEqual('respuesta server')
+      next()
+    },(err) => {
+      expect(err).toBe(null);
     })
+  },2000);
 
-		it('crear un transport fetch', function() {
-			let transporter = new TransportFetch()
-			expect( transporter instanceof TransportFetch ).toBeTruthy()
+
+  it('metodo push en transport fetch', function() {
+    let data = {name: "jona",age: 23}
+    transporter.push(data).then((res) => {
+      expect(res).not.toBe(null);
+    },(err) => {
+      expect(err).toBe(null);
     })
+  },2000)
 
-		it('metodo request en transport fetch', function() {
-		    let data = {name: "jona",age: 23}
-				transporter.request(data).then((res) => {
-					expect( res.name ).toEqual('respuesta server')
-					next()
-				})
-		})
+  it('metodo update en transport fetch', function() {
+    let data = {name: "jona",age: 23}
+    transporter.update(data).then(() => {
+      expect(res).not.toBe(null);
+    },(err) => {
+      expect(err).toBe(null);
+    })
+  })
 
-		it('metodo push en transport fetch', function() {
-				let data = {name: "jona",age: 23}
-				transporter.request(data).then(() => {})
-		})
+  it('metodo set en transport fetch', function() {
+    let data = {name: "jona",age: 23}
+    transporter.set(data).then((res) => {
+      expect(res).not.toBe(null);
+    },(err) => {
+      expect(err).toBe(null);
+    })
+  })
 
-		it('metodo update en transport fetch', function() {
-				let data = {name: "jona",age: 23}
-				transporter.request(data).then(() => {})
-		})
+  it('metodo remove en transport fetch', function() {
+    let data = {name: "jona",age: 23}
+    transporter.remove(data).then((res) => {
+      expect(res).not.toBe(null);
+    },(err) => {
+      expect(err).toBe(null);
+    })
+  })
 
-		it('metodo set en transport fetch', function() {
-				let data = {name: "jona",age: 23}
-				transporter.request(data).then((res) => {})
-		})
-
-		it('metodo remove en transport fetch', function() {
-				let data = {name: "jona",age: 23}
-				transporter.request(data).then((res) => {})
-		})
+  it('descarga la cabecera del localhost...', function(next) {
+    // Obitiene el fetch element
+    fetch('http://localhost:9000/').then((res) => {
+      // Una prueba
+      expect(true).toEqual(true)
+      next()
+    }).catch(err => {
+      throw err
+    })
+  }, 2000);
 
 })
