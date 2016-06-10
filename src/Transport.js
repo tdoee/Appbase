@@ -9,7 +9,7 @@ export class Transport {
 	}
 
 	resolveUrl( urlToResolve ) {
-		return url.resolve( this.url, url )
+		return url.resolve( this.url, urlToResolve )
 	}
 
 	appbase() {
