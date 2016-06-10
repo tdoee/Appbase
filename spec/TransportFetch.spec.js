@@ -15,13 +15,29 @@ describe('Levanta las pruebas al transporter', function() {
 
     emulateApp.use(bodyParser.json())
 
-    emulateApp.use('/', function functionName(req, res, next) {
-      //console.log(req.body);
+    emulateApp.post('/', function functionName(req, res, next) {
+      console.log(req.body);
       let test = {
         name: "respuesta server",
         age: 23
       }
       res.send(test)
+    })
+
+    emulateApp.post('/push', function functionName(req,res,next) {
+        console.log(req.body);
+    })
+
+    emulateApp.post('/update', function functionName(req,res,next) {
+        console.log(req.body);
+    })
+
+    emulateApp.post('/remove', function functionName(req,res,next) {
+        console.log(req.body);
+    })
+
+    emulateApp.post('/set', function functionName(req,res,next) {
+        console.log(req.body);
     })
 
     let server = emulateApp.listen(9000, function() {
@@ -63,7 +79,7 @@ describe('Levanta las pruebas al transporter', function() {
 
 
   it('metodo push en transport fetch', function() {
-    let data = {name: "jona",age: 23}
+    let data = {name: "push"}
     transporter.push(data).then((res) => {
       expect(res).not.toBe(null);
     },(err) => {
@@ -72,7 +88,7 @@ describe('Levanta las pruebas al transporter', function() {
   },2000)
 
   it('metodo update en transport fetch', function() {
-    let data = {name: "jona",age: 23}
+    let data = {name: "update"}
     transporter.update(data).then(() => {
       expect(res).not.toBe(null);
     },(err) => {
@@ -81,7 +97,7 @@ describe('Levanta las pruebas al transporter', function() {
   })
 
   it('metodo set en transport fetch', function() {
-    let data = {name: "jona",age: 23}
+    let data = {name: "set"}
     transporter.set(data).then((res) => {
       expect(res).not.toBe(null);
     },(err) => {
@@ -90,7 +106,7 @@ describe('Levanta las pruebas al transporter', function() {
   })
 
   it('metodo remove en transport fetch', function() {
-    let data = {name: "jona",age: 23}
+    let data = {name: "remove"}
     transporter.remove(data).then((res) => {
       expect(res).not.toBe(null);
     },(err) => {

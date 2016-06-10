@@ -30,7 +30,7 @@ export class TransportFetch extends Transport {
 
   push(data) {
     return new Promise((resolve, reject) => {
-      fetch(this.url, {
+      fetch(this.resolveUrl('push'), {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
@@ -43,12 +43,12 @@ export class TransportFetch extends Transport {
       .catch(err => {
         reject(err)
       })
-    }, 2000);
+    });
   }
 
   update(data) {
     return new Promise((resolve, reject) => {
-      fetch(this.url, {
+      fetch(this.resolveUrl('update'), {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
@@ -61,12 +61,12 @@ export class TransportFetch extends Transport {
       .catch(err => {
         reject(err)
       })
-    }, 2000);
+    });
   }
 
   set(data) {
     return new Promise((resolve, reject) => {
-      fetch(this.url, {
+      fetch(this.resolveUrl('set'), {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
@@ -79,12 +79,12 @@ export class TransportFetch extends Transport {
       .catch(err => {
         reject(err)
       })
-    }, 2000);
+    });
   }
 
   remove(data) {
     return new Promise((resolve, reject) => {
-      fetch(this.url, {
+      fetch(this.resolveUrl('remove'), {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
@@ -97,7 +97,7 @@ export class TransportFetch extends Transport {
       .catch(err => {
         reject(err)
       })
-    }, 2000);
+    });
   }
 }
 
