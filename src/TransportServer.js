@@ -14,7 +14,7 @@ export class TransportServer {
 		if ( !this[ symbolUses ].has( name ) ) {
 			this[ symbolUses ].set( name, new Set() )
 		}
-		this[ symbolUses ].get( name )
+		return this[ symbolUses ].get( name )
 	}
 
 	/**
@@ -43,10 +43,12 @@ export class TransportServer {
 			fns = onlyfns
 		}
 
+		let groupAll = this.getGroup( '*' )
 		let group = this.getGroup( groupName )
 
 		for ( const fn of fns ) {
-			// statement
+			groupAll.add( fn )
+			group.add( fn )
 		}
 
 		return this
@@ -55,13 +57,35 @@ export class TransportServer {
 	/**
 	 * Emite una solicitud que mas tarde sera ejecutada por el servidor.
 	 * 
+	 * @param  {String} group           Nombre del grupo a ejecutar.
 	 * @param  {Object} head 			Opciones de cabecera.
 	 * @param  {Object} data 			Data a enviar.
 	 * @return {Promise}      			Cuando la operación aya concluido.
 	 */
-	request( head = {}, data = {} ) {
+	request( groupName = '*', head = {}, data = {} ) {
 		return new Promise( ( resolve, reject ) => {
+			let group = this.getGroup( groupName )
 
+			let tasks = [ ...group.values() ]
+				.map( fn => next => {
+					let pr = fn( head, data, next )
+					if ( pr instanceof Promise ) {
+						pr
+							.then( () => {
+								next()
+							} )
+							.catch( err => {
+								next( err )
+							} )
+					}
+				} )
+			waterfall( tasks, ( err, r ) => {
+				if ( err ) {
+					reject( err )
+				} else {
+					resolve( { head, data } )
+				}
+			} )
 		} )
 	}
 }
