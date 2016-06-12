@@ -6,7 +6,7 @@
   "scripts": {
     "jasmine": "node_modules/.bin/jasmine",
     "test": "node_modules/.bin/jasmine",
-    "textTransportServer": "node_modules/.bin/nodemon -x npm run-script test spec/TransportServer.spec.js"
+    "testTransportServer": "node_modules/.bin/nodemon -x npm run-script test spec/TransportServer.spec.js"
   },
   "repository": {
     "type": "git",
