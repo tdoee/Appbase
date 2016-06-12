@@ -11,11 +11,11 @@ npm i --save appbase
 > [NPM] Package <https://www.npmjs.com/package/appbase>
 
 ## License
-Lhis project is undere a [MIT License].
+This project is undere a [Creative Commons License].
 
 
 [Appbase Background by tdoee]: doc/assets/Appbase%20Background.png "Appbase by tdoee"
 [NPM]: https://www.npmjs.com/
-[MIT License]: ./LICENSE
+[Creative Commons License]: ./LICENSE
 [LICENSE]: ./LICENSE
 
