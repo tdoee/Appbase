@@ -1,9 +1,20 @@
+import waterfall from 'async/waterfall'
+
+let symbolUses = Symbol( 'Uses' )
+
 /**
  * Comunicación con el servidor.
  */
-class TransportServer {
+export class TransportServer {
 	constructor() {
+		this[ symbolUses ] = new Map()
+	}
 
+	getGroup( name ) {
+		if ( !this[ symbolUses ].has( name ) ) {
+			this[ symbolUses ].set( name, new Set() )
+		}
+		this[ symbolUses ].get( name )
 	}
 
 	/**
@@ -15,11 +26,29 @@ class TransportServer {
 	 *   		servidor. Ej. Token Id, session Id
 	 *   * data [Object]: Contiene la información enviada. 
 	 *
-	 * @param  {Function} fn 			Función que sera ejecutada al momento de
+	 * @param  {String}   [group='*']   Nombre del grupo al cual pertenece los
+	 *                                  use's a utilizar, por defecto: *
+	 * @param  {...Function} fns        Función que sera ejecutada al momento de
 	 *                          		se requerida por una solicitud.
-	 * @return {TransportServer}		Retorna el mismo objeto.
+	 * @return {TransportServer}        Retorna el mismo objeto.
 	 */
-	use( fn ) {
+	use( evalVar, ...onlyfns ) {
+		let groupName
+		let fns
+		if ( typeof evalVar === 'function' ) {
+			fns = [ evalVar, ...onlyfns ]
+			groupName = '*'
+		} else {
+			groupName = evalVar
+			fns = onlyfns
+		}
+
+		let group = this.getGroup( groupName )
+
+		for ( const fn of fns ) {
+			// statement
+		}
+
 		return this
 	}
 
@@ -36,3 +65,5 @@ class TransportServer {
 		} )
 	}
 }
+
+export default TransportServer
