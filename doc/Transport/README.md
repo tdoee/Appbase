@@ -4,7 +4,7 @@ Usamos transportadores para comunicar el **servidor** con el **cliente**, con es
 1. [Transportador del Cliente][Transport Client]
 2. [Transportador del Servidor][Transport Server]
 
-![Diagrama Transportadores](../assets/Diagrama%20Transportadores.png)
+[![Diagrama Transportadores](../assets/Diagrama%20Transportadores.png)](https://googledrive.com/host/0B7UPJuUjo-_WcUVsZTlOUmdlV3c)
 > https://googledrive.com/host/0B7UPJuUjo-_WcUVsZTlOUmdlV3c
 
 [Transport Client]: ./TransportClient.md
