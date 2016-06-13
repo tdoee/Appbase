@@ -2,6 +2,11 @@
 
 ![Appbase Background by tdoee][]
 
+## Documentación
+> This documentation is written on **spanish**.
+
+Please going to [doc/README.md](doc/README.md) to read the documentation.
+
 ## How Install
 Use [NPM] to install the client API or server API with.
 
