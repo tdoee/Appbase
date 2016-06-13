@@ -13,7 +13,9 @@ export class TransportFetch extends Transport {
       fetch(this.url, {
         method: 'POST',
         headers: {
-          'Content-Type': 'application/json'
+          'Content-Type': 'application/json',
+          'tokenId': 'testToken',
+          'sessionId': 'testSession'
         },
         body: JSON.stringify(data)
       })
@@ -33,7 +35,9 @@ export class TransportFetch extends Transport {
       fetch(this.resolveUrl('push'), {
         method: 'POST',
         headers: {
-          'Content-Type': 'application/json'
+          'Content-Type': 'application/json',
+          'tokenId': 'testToken',
+          'sessionId': 'testSession'
         },
         body: JSON.stringify(data)
       })
@@ -51,7 +55,9 @@ export class TransportFetch extends Transport {
       fetch(this.resolveUrl('update'), {
         method: 'POST',
         headers: {
-          'Content-Type': 'application/json'
+          'Content-Type': 'application/json',
+          'tokenId': 'testToken',
+          'sessionId': 'testSession'
         },
         body: JSON.stringify(data)
       })
@@ -69,7 +75,9 @@ export class TransportFetch extends Transport {
       fetch(this.resolveUrl('set'), {
         method: 'POST',
         headers: {
-          'Content-Type': 'application/json'
+          'Content-Type': 'application/json',
+          'tokenId': 'testToken',
+          'sessionId': 'testSession'
         },
         body: JSON.stringify(data)
       })
@@ -87,7 +95,9 @@ export class TransportFetch extends Transport {
       fetch(this.resolveUrl('remove'), {
         method: 'POST',
         headers: {
-          'Content-Type': 'application/json'
+          'Content-Type': 'application/json',
+          'tokenId': 'testToken',
+          'sessionId': 'testSession'
         },
         body: JSON.stringify(data)
       })
