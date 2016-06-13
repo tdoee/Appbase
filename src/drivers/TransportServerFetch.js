@@ -1,19 +1,30 @@
 import TransportServer from '../TransportServer'
 import express from 'express'
+import bodyParser from 'body-parser'
 
 
 export class TransportServerFetch extends TransportServer {
 
-  constructor( app ) {
+  constructor( app = void 0 ) {
     super()
     this.app = app
   }
 
   /**
    * Inicializa las rutas en express
+   *
+   * @param {express} app               Aplicación express a la se asignan las
+   *                                    rutas usando el prefijo en el path
+   *                                    '/'.
+   * @param {String} prefix             Prefijo definido a las rutas en 'app' de
+   *                                    ser definida.
+   * @return {Router}                   Router de la aplicación con las rutas de
+   *                                    la aplicación.
    */
-  setUp( app = this.app ) {
+  setUp( app = this.app, prefixRoute = '/api' ) {
     let router = express.Router()
+
+    router.use( bodyParser.json() )
 
     // por cada request sin importar el tipo
     router.use( function( req, res, next ) {
@@ -48,7 +59,11 @@ export class TransportServerFetch extends TransportServer {
     } )
 
     // los path comienzan con /api/
-    app.use( '/api', router )
+    if ( app ) {
+      app.use( prefixRoute, router )
+    }
+
+    return router
   }
 
   request( headers = {}, body = {} ) {
