@@ -57,7 +57,39 @@ describe( 'pruebas TransportServerFetch', function() {
   } )
 
   it( 'inicia un push', function() {
-    
+    transportServer.use( 'push', ( head, body, next ) => {
+      let custom_value = head.body.custom_this_value
+      expect( custom_value ).toEqual( randomValueToTest )
+      body.custom_value = randomValueToTest2
+      next()
+    } )
+  } )
+
+  it( 'inicia un update', function() {
+    transportServer.use( 'update', ( head, body, next ) => {
+      let custom_value = head.body.custom_this_value
+      expect( custom_value ).toEqual( randomValueToTest )
+      body.custom_value = randomValueToTest2
+      next()
+    } )
+  } )
+
+  it( 'inicia un set', function() {
+    transportServer.use( 'set', ( head, body, next ) => {
+      let custom_value = head.body.custom_this_value
+      expect( custom_value ).toEqual( randomValueToTest )
+      body.custom_value = randomValueToTest2
+      next()
+    } )
+  } )
+
+  it( 'inicia un remove', function() {
+    transportServer.use( 'remove', ( head, body, next ) => {
+      let custom_value = head.body.custom_this_value
+      expect( custom_value ).toEqual( randomValueToTest )
+      body.custom_value = randomValueToTest2
+      next()
+    } )
   } )
 
   it( 'probando un request', function( next ) {
