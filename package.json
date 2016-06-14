@@ -17,13 +17,11 @@
     "email": "hi@jon.soy",
     "url": "http://jon.soy/"
   },
-  "contributors": [
-    {
-      "name": "Jonathan Ramirez",
-      "email": "ramirez.jonathan.18@gmail.com",
-      "url": "https://github.com/Jona93"
-    }
-  ],
+  "contributors": [ {
+    "name": "Jonathan Ramirez",
+    "email": "ramirez.jonathan.18@gmail.com",
+    "url": "https://github.com/Jona93"
+  } ],
   "license": "MIT",
   "homepage": "https://github.com/tdoee/Appbase#readme",
   "keywords": [],
@@ -42,7 +40,7 @@
     "presets": [
       "es2015"
     ],
-    "plugins": ["transform-inline-environment-variables"]
+    "plugins": [ "transform-inline-environment-variables" ]
   },
   "dependencies": {
     "async": "^2.0.0-rc.6",

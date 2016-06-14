@@ -3,28 +3,28 @@ import TransportServer from '../src/TransportServer.js'
 
 
 describe( 'Pruebas a TransportServer', function() {
+
 	describe( 'importando', function() {
+
 		it( 'usando importación por defecto', function() {
 			expect( TransportServer ).toBeDefined()
 		} )
+
 		it( 'usando importación nombrada', function() {
 			expect( TransportServerMember ).toBeDefined()
 		} )
+
 	} )
 
 	describe( 'creando un objeto tipo TransportServer', function() {
 		let transportServer
 
 		it( 'creando', () => {
-
 			transportServer = new TransportServer()
-
 			expect( transportServer instanceof TransportServer ).toBeTruthy()
-
 		} )
 
 		it( 'definiendo use(fn)\'s', () => {
-
 			transportServer
 				.use( ( head, data, next ) => {
 					data.updateData = 3
@@ -41,7 +41,6 @@ describe( 'Pruebas a TransportServer', function() {
 
 					return new Promise( r => setTimeout( r, 200, true ) )
 				} )
-
 		} )
 
 		it( 'emitiendo un request(head={}, data={})', ( next ) => {
@@ -58,4 +57,5 @@ describe( 'Pruebas a TransportServer', function() {
 		}, 5000 )
 
 	} )
+
 } )

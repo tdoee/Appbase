@@ -1,23 +1,27 @@
 import SemVer from 'semver'
 import url from 'url'
-import pkg from '../package.json'
-const appbaseSymbol = Symbol( "Appbase" );
+import TransportFetch from './plugins/TransportFetch'
 
-const versionAppbase = SemVer( pkg.version )
+export const appbaseSymbol = Symbol( 'Appbase' );
+export const appbaseOptionsSymbol = Symbol( 'Options' )
+export const appbaseTransportSymbol = Symbol( 'Transport' )
+
+const versionAppbase = process.env.APPBASE_VERSION
 
 export class Appbase {
 	constructor() {
-		this.options = {}
+		this[ appbaseOptionsSymbol ] = {}
 	}
 
 	/**
 	 * Inicializa la aplicación con las opciones definidas.
 	 * 
 	 * @param  {String} options.apiKey  Clave del servicio.
-	 * @param  {String} [options.URL = ]     Url del servicio a utilizar.
+	 * @param  {String} [options.URL='http://localhost/']   Url del servicio a
+	 *                                                      utilizar.
 	 * @return {Appbase}                Aplicación ya configurada.
 	 */
-	initialize( { apiKey, url: URL = null } ) {
+	initialize( { apiKey, url: URL = null, transport: TransportPluginsControl = TransportFetch } ) {
 		/*
 		 * En caso de usar un browser utiliza 
 		 */
@@ -35,20 +39,71 @@ export class Appbase {
 		}
 
 		// Set option URL
-		this.options.url = URL
+		if ( URL ) {
+			this.set( 'url', URL )
+		}
 
 		// Set option apiKey
-		this.options.apiKey = apiKey
+		if ( apiKey ) {
+			this.set( 'apiKey', apiKey )
+		}
+
+		// Genera el transportador base para la comunicación
+		this[ appbaseTransportSymbol ] = new TransportPluginsControl( this, this.get( 'url' ) )
 
 		return this
 	}
 
+	/**
+	 * Define una opcion
+	 * 
+	 * @param {String} name  			Nombre de la opción.
+	 * @param {Object} value            Valor que obtiene esta opción.
+	 */
+	set( name, value ) {
+		this[ appbaseOptionsSymbol ][ name ] = value
+	}
+
+	/**
+	 * Obtiene las opciones definidas.
+	 * 
+	 * @param  {String} name            Nombre asociado a la opción.
+	 * @param  {String} [default=undefined]                 Valor por defecto a
+	 *                                                      retornar.
+	 * @return {Object}                 Valor asignado a la opción.
+	 * @example
+	 * conts opt = app.get('my option')
+	 *
+	 * it (opt === 'valid opt') {
+	 *     console.log('option is valid')
+	 * } else {
+	 *     console.log('option no valid')
+	 * }
+	 */
+	get( name, defaultValue = void 0 ) {
+		return this[ appbaseOptionsSymbol ][ name ] || defaultValue
+	}
+
+	/**
+	 * Numero de la versión de la librería.
+	 * 
+	 * @return {SemVer}
+	 */
 	get VERSION() {
 		return versionAppbase
 	}
 
-	database() {}
-	session() {}
+	/**
+	 * Obtiene el transportador que esta usando el elemento Appbase.
+	 *
+	 * @return {Transport}              Transportador.
+	 */
+	get transport() {
+		return this[ appbaseTransportSymbol ]
+	}
+
+	get database() {}
+	get session() {}
 }
 
 Appbase.VERSION = versionAppbase
@@ -56,7 +111,5 @@ Appbase.initialize = function( ...opts ) {
 	let app = new Appbase()
 	return app.initialize( ...opts )
 }
-
-export { appbaseSymbol }
 
 export default Appbase

@@ -21,41 +21,89 @@ export class TransportServerFetch extends TransportServer {
    * @return {Router}                   Router de la aplicación con las rutas de
    *                                    la aplicación.
    */
-  setUp( app = this.app, prefixRoute = '/api' ) {
+  setUp( app = this.app, prefixRoute = '/' ) {
     let router = express.Router()
-
     router.use( bodyParser.json() )
 
     // por cada request sin importar el tipo
     router.use( function( req, res, next ) {
-      // hacer algo
-      console.log( "log tsf use" )
+      req.accepts( "json" )
+
+      // Formando los header
+      req.transport_head = {
+        body: req.body,
+      }
+      req.transport_body = {}
+
       next()
     } )
 
     // api/push
-    router.post( '/push', ( req, res, next ) => {
-      console.log( "log tsf push" )
+    router.put( '/push', ( req, res, next ) => {
+      this
+        .request( 'request', req.transport_head, req.transport_body )
+        .then( ( { head, data } ) => {
+          res.json({
+            status: 'ok',
+          })
+        } )
+        .catch( err => {
+          next( err )
+        } )
     } )
 
     // api/update
     router.post( '/update', ( req, res, next ) => {
-      console.log( "log tsf update" )
+      this
+        .request( 'request', req.transport_head, req.transport_body )
+        .then( ( { head, data } ) => {
+          res.json({
+            status: 'ok',
+          })
+        } )
+        .catch( err => {
+          next( err )
+        } )
     } )
 
     // api/remove
-    router.post( '/remove', ( req, res, next ) => {
-      console.log( "log tsf remove" )
+    router.delete( '/remove', ( req, res, next ) => {
+      this
+        .request( 'request', req.transport_head, req.transport_body )
+        .then( ( { head, data } ) => {
+          res.json({
+            status: 'ok',
+          })
+        } )
+        .catch( err => {
+          next( err )
+        } )
     } )
 
     // api/set
-    router.post( '/set', ( req, res, next ) => {
-      console.log( "log tsf set" )
+    router.put( '/set', ( req, res, next ) => {
+      this
+        .request( 'request', req.transport_head, req.transport_body )
+        .then( ( { head, data } ) => {
+          res.json({
+            status: 'ok',
+          })
+        } )
+        .catch( err => {
+          next( err )
+        } )
     } )
 
     // api/request
     router.post( '/', ( req, res, next ) => {
-      console.log( "log tsf request" )
+      this
+        .request( 'request', req.transport_head, req.transport_body )
+        .then( ( { head, data } ) => {
+          res.json( data )
+        } )
+        .catch( err => {
+          next( err )
+        } )
     } )
 
     // los path comienzan con /api/
@@ -64,10 +112,6 @@ export class TransportServerFetch extends TransportServer {
     }
 
     return router
-  }
-
-  request( headers = {}, body = {} ) {
-    super.request( headers, body )
   }
 
 }

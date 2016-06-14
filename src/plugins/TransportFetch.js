@@ -9,25 +9,22 @@ export class TransportFetch extends Transport {
   }
 
   request( data ) {
-    return new Promise( ( resolve, reject ) => {
-      fetch( this.url, {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-            'tokenId': 'testToken',
-            'sessionId': 'testSession'
-          },
-          body: JSON.stringify( data )
-        } )
-        .then( ( res ) => {
+    return fetch( this.url, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'tokenId': 'testToken',
+          'sessionId': 'testSession'
+        },
+        body: JSON.stringify( data ),
+      } )
+      .then( res => {
+        if ( res.ok ) {
           return res.json()
-        } ).then( ( data ) => {
-          resolve( data )
-        } )
-        .catch( ( err ) => {
-          reject( err )
-        } )
-    } );
+        } else {
+          return Promise.reject( new Error( res.statusText ) )
+        }
+      } )
   }
 
   push( data ) {
@@ -47,7 +44,7 @@ export class TransportFetch extends Transport {
         .catch( err => {
           reject( err )
         } )
-    } );
+    } )
   }
 
   update( data ) {
@@ -67,7 +64,7 @@ export class TransportFetch extends Transport {
         .catch( err => {
           reject( err )
         } )
-    } );
+    } )
   }
 
   set( data ) {
@@ -87,7 +84,7 @@ export class TransportFetch extends Transport {
         .catch( err => {
           reject( err )
         } )
-    } );
+    } )
   }
 
   remove( data ) {
@@ -107,7 +104,7 @@ export class TransportFetch extends Transport {
         .catch( err => {
           reject( err )
         } )
-    } );
+    } )
   }
 }
 

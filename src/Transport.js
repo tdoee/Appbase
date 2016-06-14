@@ -3,16 +3,21 @@ import url from 'url'
 
 export class Transport {
 
-	constructor( app, url ) {
+	constructor( app, url = void 0 ) {
 		this[ appbaseSymbol ] = app;
-		this.url = url
+
+		if ( url ) {
+			this.url = url
+		} else {
+			this.url = app.get( 'url' )
+		}
 	}
 
 	resolveUrl( urlToResolve ) {
 		return url.resolve( this.url, urlToResolve )
 	}
 
-	appbase() {
+	get appbase() {
 		return this[ appbaseSymbol ]
 	}
 
