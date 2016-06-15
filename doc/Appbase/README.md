@@ -34,7 +34,7 @@ app.initialize({
 
 | Opciones | tipo | Valor por defecto | Descripción |
 | -------- | ---- | ----------------- | ----------- |
-| `url` | **String** | local url | Utiliza como ruta para conectase con el servidor. |
+| `url` | **String** | Basada en `location` | Utiliza como ruta para conectase con el servidor. |
 | `apiKey` | **String** | `null` | Es una credencia para autentificar el uso de la API |
 | `transport` | **Transport** | `TransportFetch` | Utiliza el transportador para la comunicación con el servidor |
 
