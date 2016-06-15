@@ -31,6 +31,43 @@ describe( 'pruebas TransportFetch', function() {
       next()
     } )
 
+    // Define Uses to Transports
+    transportServer.use( 'request', ( head, body, next ) => {
+      let custom_value = head.body.custom_this_value
+      expect( custom_value ).toEqual( randomValueToTest )
+      body.custom_value = randomValueToTest2
+      next()
+    } )
+
+    transportServer.use( 'push', ( head, body, next ) => {
+      let custom_value = head.body.custom_this_value
+      expect( custom_value ).toEqual( randomValueToTest )
+      body.custom_value = randomValueToTest2
+      next()
+    } )
+
+    transportServer.use( 'update', ( head, body, next ) => {
+      let custom_value = head.body.custom_this_value
+      expect( custom_value ).toEqual( randomValueToTest )
+      body.custom_value = randomValueToTest2
+      next()
+    } )
+
+    transportServer.use( 'set', ( head, body, next ) => {
+      let custom_value = head.body.custom_this_value
+      expect( custom_value ).toEqual( randomValueToTest )
+      body.custom_value = randomValueToTest2
+      next()
+    } )
+
+    transportServer.use( 'remove', ( head, body, next ) => {
+      let custom_value = head.body.custom_this_value
+      expect( custom_value ).toEqual( randomValueToTest )
+      body.custom_value = randomValueToTest2
+      next()
+    } )
+
+
     // Inicia las rutas
     emulateApp.use( transportServer.setUp() )
 
@@ -50,66 +87,6 @@ describe( 'pruebas TransportFetch', function() {
 
   it( 'fue importado TransportFetch', function() {
     expect( TransportFetch ).toBeDefined()
-  } )
-
-  it( 'inicia un request', function() {
-    transportServer.use( 'request', ( head, body, next ) => {
-      let custom_value = head.body.custom_this_value
-      expect( custom_value ).toEqual( randomValueToTest )
-      body.custom_value = randomValueToTest2
-      next()
-    } )
-
-    expect( transportServer.getGroup( 'request' ).size ).toEqual( 1 )
-    expect( transportServer.getGroup( '*' ).size ).toEqual( 1 )
-  } )
-
-  it( 'inicia un push', function() {
-    transportServer.use( 'push', ( head, body, next ) => {
-      let custom_value = head.body.custom_this_value
-      expect( custom_value ).toEqual( randomValueToTest )
-      body.custom_value = randomValueToTest2
-      next()
-    } )
-
-    expect( transportServer.getGroup( 'push' ).size ).toEqual( 1 )
-    expect( transportServer.getGroup( '*' ).size ).toEqual( 2 )
-  } )
-
-  it( 'inicia un update', function() {
-    transportServer.use( 'update', ( head, body, next ) => {
-      let custom_value = head.body.custom_this_value
-      expect( custom_value ).toEqual( randomValueToTest )
-      body.custom_value = randomValueToTest2
-      next()
-    } )
-
-    expect( transportServer.getGroup( 'update' ).size ).toEqual( 1 )
-    expect( transportServer.getGroup( '*' ).size ).toEqual( 3 )
-  } )
-
-  it( 'inicia un set', function() {
-    transportServer.use( 'set', ( head, body, next ) => {
-      let custom_value = head.body.custom_this_value
-      expect( custom_value ).toEqual( randomValueToTest )
-      body.custom_value = randomValueToTest2
-      next()
-    } )
-
-    expect( transportServer.getGroup( 'set' ).size ).toEqual( 1 )
-    expect( transportServer.getGroup( '*' ).size ).toEqual( 4 )
-  } )
-
-  it( 'inicia un remove', function() {
-    transportServer.use( 'remove', ( head, body, next ) => {
-      let custom_value = head.body.custom_this_value
-      expect( custom_value ).toEqual( randomValueToTest )
-      body.custom_value = randomValueToTest2
-      next()
-    } )
-
-    expect( transportServer.getGroup( 'remove' ).size ).toEqual( 1 )
-    expect( transportServer.getGroup( '*' ).size ).toEqual( 5 )
   } )
 
   it( 'probando un request', function( next ) {
