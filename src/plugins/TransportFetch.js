@@ -1,22 +1,23 @@
 import { appbaseSymbol } from '../Appbase'
 import Transport from '../Transport'
 import fetch from 'node-fetch'
+import URL from 'url'
 
 export class TransportFetch extends Transport {
 
-  constructor( app, url ) {
+  constructor( app, url = void 0 ) {
     super( app, url )
   }
 
-  request( data ) {
-    return fetch( this.url, {
-        method: 'POST',
+  _fetch( method, path, body ) {
+    return fetch( URL.resolve(this.url, path), {
+        method,
         headers: {
           'Content-Type': 'application/json',
           'tokenId': 'testToken',
-          'sessionId': 'testSession'
+          'sessionId': 'testSession',
         },
-        body: JSON.stringify( data ),
+        body: JSON.stringify( body ),
       } )
       .then( res => {
         if ( res.ok ) {
@@ -27,84 +28,24 @@ export class TransportFetch extends Transport {
       } )
   }
 
+  request( data ) {
+    return this._fetch( 'POST', 'request', data )
+  }
+
   push( data ) {
-    return new Promise( ( resolve, reject ) => {
-      fetch( this.resolveUrl( 'push' ), {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-            'tokenId': 'testToken',
-            'sessionId': 'testSession'
-          },
-          body: JSON.stringify( data )
-        } )
-        .then( () => {
-          resolve()
-        } )
-        .catch( err => {
-          reject( err )
-        } )
-    } )
+    return this._fetch( 'POST', 'push', data )
   }
 
   update( data ) {
-    return new Promise( ( resolve, reject ) => {
-      fetch( this.resolveUrl( 'update' ), {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-            'tokenId': 'testToken',
-            'sessionId': 'testSession'
-          },
-          body: JSON.stringify( data )
-        } )
-        .then( () => {
-          resolve()
-        } )
-        .catch( err => {
-          reject( err )
-        } )
-    } )
+    return this._fetch( 'POST', 'update', data )
   }
 
   set( data ) {
-    return new Promise( ( resolve, reject ) => {
-      fetch( this.resolveUrl( 'set' ), {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-            'tokenId': 'testToken',
-            'sessionId': 'testSession'
-          },
-          body: JSON.stringify( data )
-        } )
-        .then( () => {
-          resolve()
-        } )
-        .catch( err => {
-          reject( err )
-        } )
-    } )
+    return this._fetch( 'POST', 'set', data )
   }
 
   remove( data ) {
-    return new Promise( ( resolve, reject ) => {
-      fetch( this.resolveUrl( 'remove' ), {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-            'tokenId': 'testToken',
-            'sessionId': 'testSession'
-          },
-          body: JSON.stringify( data )
-        } )
-        .then( () => {
-          resolve()
-        } )
-        .catch( err => {
-          reject( err )
-        } )
-    } )
+    return this._fetch( 'POST', 'remove', data )
   }
 }
 

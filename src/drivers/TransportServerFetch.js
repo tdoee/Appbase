@@ -5,23 +5,23 @@ import bodyParser from 'body-parser'
 
 export class TransportServerFetch extends TransportServer {
 
-  constructor( app = void 0 ) {
+  constructor( appexpress = void 0 ) {
     super()
-    this.app = app
+    this.appexpress = appexpress
   }
 
   /**
    * Inicializa las rutas en express
    *
-   * @param {express} app               Aplicación express a la se asignan las
+   * @param {express} appexpress               Aplicación express a la se asignan las
    *                                    rutas usando el prefijo en el path
    *                                    '/'.
-   * @param {String} prefix             Prefijo definido a las rutas en 'app' de
+   * @param {String} prefix             Prefijo definido a las rutas en 'appexpress' de
    *                                    ser definida.
    * @return {Router}                   Router de la aplicación con las rutas de
    *                                    la aplicación.
    */
-  setUp( app = this.app, prefixRoute = '/' ) {
+  setUp( appexpress = this.appexpress, prefixRoute = '/' ) {
     let router = express.Router()
     router.use( bodyParser.json() )
 
@@ -39,7 +39,7 @@ export class TransportServerFetch extends TransportServer {
     } )
 
     // api/push
-    router.put( '/push', ( req, res, next ) => {
+    router.post( '/push', ( req, res, next ) => {
       this
         .request( 'request', req.transport_head, req.transport_body )
         .then( ( { head, data } ) => {
@@ -67,7 +67,7 @@ export class TransportServerFetch extends TransportServer {
     } )
 
     // api/remove
-    router.delete( '/remove', ( req, res, next ) => {
+    router.post( '/remove', ( req, res, next ) => {
       this
         .request( 'request', req.transport_head, req.transport_body )
         .then( ( { head, data } ) => {
@@ -81,7 +81,7 @@ export class TransportServerFetch extends TransportServer {
     } )
 
     // api/set
-    router.put( '/set', ( req, res, next ) => {
+    router.post( '/set', ( req, res, next ) => {
       this
         .request( 'request', req.transport_head, req.transport_body )
         .then( ( { head, data } ) => {
@@ -95,7 +95,7 @@ export class TransportServerFetch extends TransportServer {
     } )
 
     // api/request
-    router.post( '/', ( req, res, next ) => {
+    router.post( '/request', ( req, res, next ) => {
       this
         .request( 'request', req.transport_head, req.transport_body )
         .then( ( { head, data } ) => {
@@ -107,8 +107,8 @@ export class TransportServerFetch extends TransportServer {
     } )
 
     // los path comienzan con /api/
-    if ( app ) {
-      app.use( prefixRoute, router )
+    if ( appexpress ) {
+      appexpress.use( prefixRoute, router )
     }
 
     return router

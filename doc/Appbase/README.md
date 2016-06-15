@@ -1,6 +1,6 @@
 # Una aplicación con Appbase
 
-## Instalando appbase 
+## Instalando Appbase
 Para ello utiliza [NPM], en tu aplicación del cliente.
 
 ```bash
@@ -15,7 +15,12 @@ const { Appbase } = require('appbase')
 import { Appbase } from 'appbase'
 ```
 
+### Primera aplicación con Appbase
 
+Usamos la sentencia `new Appbase` declarando un objeto con las aplicación conenida.
 
+```javascript
+const app = new Appbase() 
+```
 
 [import - javascript | MDN]: https://developer.mozilla.org/en/docs/web/javascript/reference/statements/import

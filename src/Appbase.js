@@ -9,8 +9,10 @@ export const appbaseTransportSymbol = Symbol( 'Transport' )
 const versionAppbase = process.env.APPBASE_VERSION
 
 export class Appbase {
-	constructor() {
+	constructor( defaultOpts = {} ) {
+		let { transport = TransportFetch } = defaultOpts
 		this[ appbaseOptionsSymbol ] = {}
+		this.set( 'transport', transport )
 	}
 
 	/**
@@ -21,7 +23,8 @@ export class Appbase {
 	 *                                                      utilizar.
 	 * @return {Appbase}                Aplicación ya configurada.
 	 */
-	initialize( { apiKey, url: URL = null, transport: TransportPluginsControl = TransportFetch } ) {
+	initialize( opts = {} ) {
+		let { apiKey, url: URL = null, transport: TransportPluginsControl = this.get( 'transport' ) } = opts
 		/*
 		 * En caso de usar un browser utiliza 
 		 */

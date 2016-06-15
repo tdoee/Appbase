@@ -25,17 +25,22 @@ describe( 'pruebas TransportServerFetch', function() {
   beforeAll( function( done ) {
     emulateApp = express()
     transportServer = new TransportServerFetch()
-      // Inicia las rutas
-    transportServer.setUp( emulateApp )
 
-    transport = new TransportFetch( null, `http://localhost:${ portTextServer }/` )
+    emulateApp.use( function( req, res, next ) {
+      console.log( `Require: [${req.method}] ${req.path}` )
+      next()
+    } )
+
+    // Inicia las rutas
+    emulateApp.use( transportServer.setUp() )
+
+    transport = new TransportFetch( null, `http://127.0.0.1:${ portTextServer }/` )
 
     // levantando el servidor
     let server = emulateApp.listen( portTextServer, function() {
+      closeServer = server.close.bind( server )
       done()
     } )
-
-    closeServer = server.close.bind( server )
   } )
 
   afterAll( function( done ) {
@@ -43,7 +48,7 @@ describe( 'pruebas TransportServerFetch', function() {
     done()
   } )
 
-  it( 'import TransportServerFetch', function() {
+  it( 'fue importado TransportServerFetch', function() {
     expect( TransportServerFetch ).toBeDefined()
   } )
 
@@ -54,6 +59,9 @@ describe( 'pruebas TransportServerFetch', function() {
       body.custom_value = randomValueToTest2
       next()
     } )
+
+    expect( transportServer.getGroup( 'request' ).size ).toEqual( 1 )
+    expect( transportServer.getGroup( '*' ).size ).toEqual( 1 )
   } )
 
   it( 'inicia un push', function() {
@@ -63,6 +71,9 @@ describe( 'pruebas TransportServerFetch', function() {
       body.custom_value = randomValueToTest2
       next()
     } )
+
+    expect( transportServer.getGroup( 'push' ).size ).toEqual( 1 )
+    expect( transportServer.getGroup( '*' ).size ).toEqual( 2 )
   } )
 
   it( 'inicia un update', function() {
@@ -72,6 +83,9 @@ describe( 'pruebas TransportServerFetch', function() {
       body.custom_value = randomValueToTest2
       next()
     } )
+
+    expect( transportServer.getGroup( 'update' ).size ).toEqual( 1 )
+    expect( transportServer.getGroup( '*' ).size ).toEqual( 3 )
   } )
 
   it( 'inicia un set', function() {
@@ -81,6 +95,9 @@ describe( 'pruebas TransportServerFetch', function() {
       body.custom_value = randomValueToTest2
       next()
     } )
+
+    expect( transportServer.getGroup( 'set' ).size ).toEqual( 1 )
+    expect( transportServer.getGroup( '*' ).size ).toEqual( 4 )
   } )
 
   it( 'inicia un remove', function() {
@@ -90,6 +107,9 @@ describe( 'pruebas TransportServerFetch', function() {
       body.custom_value = randomValueToTest2
       next()
     } )
+
+    expect( transportServer.getGroup( 'remove' ).size ).toEqual( 1 )
+    expect( transportServer.getGroup( '*' ).size ).toEqual( 5 )
   } )
 
   it( 'probando un request', function( next ) {
@@ -108,124 +128,68 @@ describe( 'pruebas TransportServerFetch', function() {
       } )
   }, 2000 )
 
-  it( 'probando un push', function( next ) {
-    transport
-      .push( {
-        custom_this_value: randomValueToTest,
-      } )
-      .then( ( res ) => {
-        expect( res.custom_value ).toEqual( randomValueToTest2 )
+  // it( 'probando un push', function( next ) {
+  //   transport
+  //     .push( {
+  //       custom_this_value: randomValueToTest,
+  //     } )
+  //     .then( ( res ) => {
+  //       expect( res.custom_value ).toEqual( randomValueToTest2 )
 
-        next()
-      } )
-      .catch( err => {
-        throw err
-        next()
-      } )
-  }, 2000 )
-
-  it( 'probando un update', function( next ) {
-    transport
-      .update( {
-        custom_this_value: randomValueToTest,
-      } )
-      .then( ( res ) => {
-        expect( res.custom_value ).toEqual( randomValueToTest2 )
-
-        next()
-      } )
-      .catch( err => {
-        throw err
-        next()
-      } )
-  }, 2000 )
-
-  it( 'probando un set', function( next ) {
-    transport
-      .set( {
-        custom_this_value: randomValueToTest,
-      } )
-      .then( ( res ) => {
-        expect( res.custom_value ).toEqual( randomValueToTest2 )
-
-        next()
-      } )
-      .catch( err => {
-        throw err
-        next()
-      } )
-  }, 2000 )
-
-  it( 'probando un remove', function( next ) {
-    transport
-      .remove( {
-        custom_this_value: randomValueToTest,
-      } )
-      .then( ( res ) => {
-        expect( res.custom_value ).toEqual( randomValueToTest2 )
-
-        next()
-      } )
-      .catch( err => {
-        throw err
-        next()
-      } )
-  }, 2000 )
-
-  // it( 'metodo push en transport fetch', function() {
-  //   let data = { name: "push" }
-  //   transporter.push( data ).then( ( res ) => {
-  //     expect( res ).not.toBe( null )
-  //   }, ( err ) => {
-  //     expect( true ).not.toBe( true )
-  //   } )
+  //       next()
+  //     } )
+  //     .catch( err => {
+  //       throw err
+  //       next()
+  //     } )
   // }, 2000 )
 
-  // it( 'metodo remove en transport fetch', function() {
-  //   let data = { name: "remove" }
-  //   transporter.remove( data ).then( ( res ) => {
-  //     expect( res ).not.toBe( null )
-  //   }, ( err ) => {
-  //     expect( true ).not.toBe( true )
-  //   } )
+  // it( 'probando un update', function( next ) {
+  //   transport
+  //     .update( {
+  //       custom_this_value: randomValueToTest,
+  //     } )
+  //     .then( ( res ) => {
+  //       expect( res.custom_value ).toEqual( randomValueToTest2 )
+
+  //       next()
+  //     } )
+  //     .catch( err => {
+  //       throw err
+  //       next()
+  //     } )
   // }, 2000 )
 
-  // it( 'metodo request en transport fetch', function() {
-  //   let data = { name: "request" }
-  //   transporter.request( data ).then( ( res ) => {
-  //     expect( res.name ).toEqual( 'respuesta server' )
-  //   }, ( err ) => {
-  //     expect( true ).not.toBe( true )
-  //   } )
-  // } )
+  // it( 'probando un set', function( next ) {
+  //   transport
+  //     .set( {
+  //       custom_this_value: randomValueToTest,
+  //     } )
+  //     .then( ( res ) => {
+  //       expect( res.custom_value ).toEqual( randomValueToTest2 )
 
-  // it( 'metodo update en transport fetch', function() {
-  //   let data = { name: "update" }
-  //   transporter.update( data ).then( ( res ) => {
-  //     expect( res ).not.toBe( null )
-  //   }, ( err ) => {
-  //     expect( true ).not.toBe( true )
-  //   } )
-  // } )
+  //       next()
+  //     } )
+  //     .catch( err => {
+  //       throw err
+  //       next()
+  //     } )
+  // }, 2000 )
 
-  // it( 'metodo set en transport fetch', function() {
-  //   let data = { name: "set" }
-  //   transporter.set( data ).then( ( res ) => {
-  //     expect( res ).not.toBe( null )
-  //   }, ( err ) => {
-  //     expect( true ).not.toBe( true )
-  //   } )
-  // } )
+  // it( 'probando un remove', function( next ) {
+  //   transport
+  //     .remove( {
+  //       custom_this_value: randomValueToTest,
+  //     } )
+  //     .then( ( res ) => {
+  //       expect( res.custom_value ).toEqual( randomValueToTest2 )
 
-  // it( 'descarga la cabecera del localhost...', function( next ) {
-  //   // Obitiene el fetch element
-  //   fetch( 'http://localhost:9000/' ).then( ( res ) => {
-  //     // Una prueba
-  //     expect( true ).toEqual( true )
-  //     next()
-  //   } ).catch( err => {
-  //     throw err
-  //   } )
+  //       next()
+  //     } )
+  //     .catch( err => {
+  //       throw err
+  //       next()
+  //     } )
   // }, 2000 )
 
 } )
