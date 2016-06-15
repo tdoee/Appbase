@@ -43,9 +43,9 @@ export class TransportServerFetch extends TransportServer {
       this
         .request( 'request', req.transport_head, req.transport_body )
         .then( ( { head, data } ) => {
-          res.json({
+          res.json( {
             status: 'ok',
-          })
+          } )
         } )
         .catch( err => {
           next( err )
@@ -57,9 +57,9 @@ export class TransportServerFetch extends TransportServer {
       this
         .request( 'request', req.transport_head, req.transport_body )
         .then( ( { head, data } ) => {
-          res.json({
+          res.json( {
             status: 'ok',
-          })
+          } )
         } )
         .catch( err => {
           next( err )
@@ -71,9 +71,9 @@ export class TransportServerFetch extends TransportServer {
       this
         .request( 'request', req.transport_head, req.transport_body )
         .then( ( { head, data } ) => {
-          res.json({
+          res.json( {
             status: 'ok',
-          })
+          } )
         } )
         .catch( err => {
           next( err )
@@ -85,9 +85,9 @@ export class TransportServerFetch extends TransportServer {
       this
         .request( 'request', req.transport_head, req.transport_body )
         .then( ( { head, data } ) => {
-          res.json({
+          res.json( {
             status: 'ok',
-          })
+          } )
         } )
         .catch( err => {
           next( err )

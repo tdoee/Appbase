@@ -27,7 +27,7 @@ describe( 'pruebas TransportServerFetch', function() {
     transportServer = new TransportServerFetch()
 
     emulateApp.use( function( req, res, next ) {
-      console.log( `Require: [${req.method}] ${req.path}` )
+      // console.log( `Require: [${req.method}] ${req.path}` )
       next()
     } )
 
@@ -119,6 +119,21 @@ describe( 'pruebas TransportServerFetch', function() {
       } )
       .then( ( res ) => {
         expect( res.custom_value ).toEqual( randomValueToTest2 )
+        next()
+      } )
+      .catch( err => {
+        throw err
+        next()
+      } )
+  }, 2000 )
+
+  it( 'probando un push', function( next ) {
+    transport
+      .push( {
+        custom_this_value: randomValueToTest,
+      } )
+      .then( ( res ) => {
+        expect( res.custom_value ).toEqual( randomValueToTest2 )
 
         next()
       } )
@@ -128,68 +143,52 @@ describe( 'pruebas TransportServerFetch', function() {
       } )
   }, 2000 )
 
-  // it( 'probando un push', function( next ) {
-  //   transport
-  //     .push( {
-  //       custom_this_value: randomValueToTest,
-  //     } )
-  //     .then( ( res ) => {
-  //       expect( res.custom_value ).toEqual( randomValueToTest2 )
+  it( 'probando un update', function( next ) {
+    transport
+      .update( {
+        custom_this_value: randomValueToTest,
+      } )
+      .then( ( res ) => {
+        expect( res.custom_value ).toEqual( randomValueToTest2 )
 
-  //       next()
-  //     } )
-  //     .catch( err => {
-  //       throw err
-  //       next()
-  //     } )
-  // }, 2000 )
+        next()
+      } )
+      .catch( err => {
+        throw err
+        next()
+      } )
+  }, 2000 )
 
-  // it( 'probando un update', function( next ) {
-  //   transport
-  //     .update( {
-  //       custom_this_value: randomValueToTest,
-  //     } )
-  //     .then( ( res ) => {
-  //       expect( res.custom_value ).toEqual( randomValueToTest2 )
+  it( 'probando un set', function( next ) {
+    transport
+      .set( {
+        custom_this_value: randomValueToTest,
+      } )
+      .then( ( res ) => {
+        expect( res.custom_value ).toEqual( randomValueToTest2 )
 
-  //       next()
-  //     } )
-  //     .catch( err => {
-  //       throw err
-  //       next()
-  //     } )
-  // }, 2000 )
+        next()
+      } )
+      .catch( err => {
+        throw err
+        next()
+      } )
+  }, 2000 )
 
-  // it( 'probando un set', function( next ) {
-  //   transport
-  //     .set( {
-  //       custom_this_value: randomValueToTest,
-  //     } )
-  //     .then( ( res ) => {
-  //       expect( res.custom_value ).toEqual( randomValueToTest2 )
+  it( 'probando un remove', function( next ) {
+    transport
+      .remove( {
+        custom_this_value: randomValueToTest,
+      } )
+      .then( ( res ) => {
+        expect( res.custom_value ).toEqual( randomValueToTest2 )
 
-  //       next()
-  //     } )
-  //     .catch( err => {
-  //       throw err
-  //       next()
-  //     } )
-  // }, 2000 )
-
-  // it( 'probando un remove', function( next ) {
-  //   transport
-  //     .remove( {
-  //       custom_this_value: randomValueToTest,
-  //     } )
-  //     .then( ( res ) => {
-  //       expect( res.custom_value ).toEqual( randomValueToTest2 )
-
-  //       next()
-  //     } )
-  //     .catch( err => {
-  //       throw err
-  //       next()
-  //     } )
-  // }, 2000 )
+        next()
+      } )
+      .catch( err => {
+        throw err
+        next()
+      } )
+  }, 2000 )
 
 } )
