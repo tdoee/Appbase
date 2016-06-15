@@ -133,8 +133,6 @@ describe( 'pruebas TransportServerFetch', function() {
         custom_this_value: randomValueToTest,
       } )
       .then( ( res ) => {
-        expect( res.custom_value ).toEqual( randomValueToTest2 )
-
         next()
       } )
       .catch( err => {
@@ -149,8 +147,6 @@ describe( 'pruebas TransportServerFetch', function() {
         custom_this_value: randomValueToTest,
       } )
       .then( ( res ) => {
-        expect( res.custom_value ).toEqual( randomValueToTest2 )
-
         next()
       } )
       .catch( err => {
@@ -165,8 +161,6 @@ describe( 'pruebas TransportServerFetch', function() {
         custom_this_value: randomValueToTest,
       } )
       .then( ( res ) => {
-        expect( res.custom_value ).toEqual( randomValueToTest2 )
-
         next()
       } )
       .catch( err => {
@@ -181,8 +175,6 @@ describe( 'pruebas TransportServerFetch', function() {
         custom_this_value: randomValueToTest,
       } )
       .then( ( res ) => {
-        expect( res.custom_value ).toEqual( randomValueToTest2 )
-
         next()
       } )
       .catch( err => {

@@ -41,7 +41,7 @@ export class TransportServerFetch extends TransportServer {
     // api/push
     router.post( '/push', ( req, res, next ) => {
       this
-        .request( 'request', req.transport_head, req.transport_body )
+        .request( 'push', req.transport_head, req.transport_body )
         .then( ( { head, data } ) => {
           res.json( {
             status: 'ok',
@@ -55,7 +55,7 @@ export class TransportServerFetch extends TransportServer {
     // api/update
     router.post( '/update', ( req, res, next ) => {
       this
-        .request( 'request', req.transport_head, req.transport_body )
+        .request( 'update', req.transport_head, req.transport_body )
         .then( ( { head, data } ) => {
           res.json( {
             status: 'ok',
@@ -69,7 +69,7 @@ export class TransportServerFetch extends TransportServer {
     // api/remove
     router.post( '/remove', ( req, res, next ) => {
       this
-        .request( 'request', req.transport_head, req.transport_body )
+        .request( 'remove', req.transport_head, req.transport_body )
         .then( ( { head, data } ) => {
           res.json( {
             status: 'ok',
@@ -83,7 +83,7 @@ export class TransportServerFetch extends TransportServer {
     // api/set
     router.post( '/set', ( req, res, next ) => {
       this
-        .request( 'request', req.transport_head, req.transport_body )
+        .request( 'set', req.transport_head, req.transport_body )
         .then( ( { head, data } ) => {
           res.json( {
             status: 'ok',
