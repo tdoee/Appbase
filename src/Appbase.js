@@ -112,7 +112,7 @@ export class Appbase {
 /**
  * Experimental function
  */
-const _APP_ENVS = new Maps()
+const _APP_ENVS = new Map()
 Appbase.ENV = ( name = 'DEFAULT' ) => _APP_ENVS.has( name ) ? _APP_ENVS.get( name ) : ( _APP_ENVS.set( name, ( new Appbase() ) ) && _APP_ENVS.get( name ) )
 
 Appbase.VERSION = versionAppbase
