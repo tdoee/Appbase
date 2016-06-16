@@ -7,10 +7,7 @@ let middleware = function( io ) {
 
 	// Set `uses` on socket.io
 	io.use( ( socket, next ) => {
-		console.log( "Hola" )
-
-		
-
+		// console.log( "Hola" )
 		next()
 	} )
 

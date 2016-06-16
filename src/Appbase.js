@@ -29,8 +29,8 @@ export class Appbase {
 		 * En caso de usar un browser utiliza 
 		 */
 		if ( URL === null ) {
-			if ( Boolean( global.location ) ) {
-				let loc = url.parse( global.location )
+			if ( Boolean( typeof( window ) !== 'undefined' ) && Boolean( window.location ) ) {
+				let loc = url.parse( window.location )
 				URL = url.format( {
 					protocol: loc.protocol,
 					hostname: loc.hostname,
