@@ -1,10 +1,12 @@
 import SemVer from 'semver'
 import url from 'url'
 import TransportFetch from './plugins/TransportFetch'
+import Session from './session'
 
 export const appbaseSymbol = Symbol( 'Appbase' );
 export const appbaseOptionsSymbol = Symbol( 'Options' )
 export const appbaseTransportSymbol = Symbol( 'Transport' )
+export const appbaseSessionSymbol = Symbol( 'Session' )
 
 const versionAppbase = process.env.APPBASE_VERSION
 
@@ -50,6 +52,9 @@ export class Appbase {
 		if ( apiKey ) {
 			this.set( 'apiKey', apiKey )
 		}
+
+		// Memoria con la session actual
+		this[ appbaseSessionSymbol ] = new Session( this, this.get( 'apiKey' ) )
 
 		// Genera el transportador base para la comunicación
 		this[ appbaseTransportSymbol ] = new TransportPluginsControl( this, this.get( 'url' ) )

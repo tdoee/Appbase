@@ -2,8 +2,8 @@ import { appbaseSymbol } from './Appbase'
 
 export class Session {
 
-	constructor( app,tokenId ) {
-		this[appbaseSymbol] = app;
+	constructor( app, tokenId ) {
+		this[ appbaseSymbol ] = app;
 		this.tokenId = tokenId;
 	}
 
@@ -11,10 +11,10 @@ export class Session {
 		return this[ appbaseSymbol ]
 	}
 
-	clear(){
-		return new Promise((fulfill,reject) => {
+	clear() {
+		return new Promise( ( fulfill, reject ) => {
 			//content
-		});
+		} );
 	}
 
 }
