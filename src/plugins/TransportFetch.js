@@ -10,7 +10,7 @@ export class TransportFetch extends Transport {
   }
 
   _fetch( method, path, body ) {
-    return fetch( URL.resolve(this.url, path), {
+    return fetch( URL.resolve( this.url, path ), {
         method,
         headers: {
           'Content-Type': 'application/json',
@@ -46,6 +46,30 @@ export class TransportFetch extends Transport {
 
   remove( data ) {
     return this._fetch( 'POST', 'remove', data )
+  }
+
+  value( data ) {
+    return new Promise( ( resolve, reject ) => {
+      let delay = 2000
+      let codeInterval
+      let close = () => {
+
+      }
+      let _each = () => {}
+      let feed = {
+        each = ( fn ) => { _each = fn },
+        close = () => { clearInterval( codeInterval ) }
+      }
+
+      codeInterval = setInterval( () => {
+        this
+          ._fetch( 'POST', 'value', data )
+          .then( _each )
+      }, delay )
+
+      resolve( feed )
+
+    } )
   }
 }
 
