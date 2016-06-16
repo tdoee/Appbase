@@ -44,6 +44,8 @@ app.transport.value({
     feed.each(function (data) {
         // se ejecuta cuando el servidor emita un nuevo dato.
     })
+
+    feed.close() // Cierra la conexión
 })
 ```
 
