@@ -30,7 +30,7 @@ export class Appbase {
 		 */
 		if ( URL === null ) {
 			if ( Boolean( typeof( window ) !== 'undefined' ) && Boolean( window.location ) ) {
-				let loc = url.parse( window.location )
+				let loc = url.parse( window.location.toString() )
 				URL = url.format( {
 					protocol: loc.protocol,
 					hostname: loc.hostname,
@@ -109,10 +109,16 @@ export class Appbase {
 	get session() {}
 }
 
+/**
+ * Experimental function
+ */
+const _APP_ENVS = new Maps()
+Appbase.ENV = ( name = 'DEFAULT' ) => _APP_ENVS.has( name ) ? _APP_ENVS.get( name ) : ( _APP_ENVS.set( name, ( new Appbase() ) ) && _APP_ENVS.get( name ) )
+
 Appbase.VERSION = versionAppbase
-Appbase.initialize = function( ...opts ) {
-	let app = new Appbase()
-	return app.initialize( ...opts )
+Appbase.initialize = function( opts, NAMEENV = 'DEFAULT' ) {
+	let app = Appbase.ENV( NAMEENV )
+	return app.initialize( opts )
 }
 
 export default Appbase

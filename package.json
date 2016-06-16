@@ -2,11 +2,11 @@
   "name": "appbase",
   "title": "Appbase",
   "version": "0.0.0",
-  "main": "index.js",
+  "main": "lib/Appbase.js",
   "scripts": {
     "jasmine": "node_modules/.bin/jasmine",
     "test": "node_modules/.bin/jasmine",
-    "testTransportServer": "node_modules/.bin/nodemon -x npm run-script test spec/TransportServer.spec.js"
+    "gulp": "node_modules/.bin/gulp"
   },
   "repository": {
     "type": "git",
@@ -17,11 +17,13 @@
     "email": "hi@jon.soy",
     "url": "http://jon.soy/"
   },
-  "contributors": [ {
-    "name": "Jonathan Ramirez",
-    "email": "ramirez.jonathan.18@gmail.com",
-    "url": "https://github.com/Jona93"
-  } ],
+  "contributors": [
+    {
+      "name": "Jonathan Ramirez",
+      "email": "ramirez.jonathan.18@gmail.com",
+      "url": "https://github.com/Jona93"
+    }
+  ],
   "license": "MIT",
   "homepage": "https://github.com/tdoee/Appbase#readme",
   "keywords": [],
@@ -32,6 +34,8 @@
     "babel-register": "^6.9.0",
     "body-parser": "1.9.2",
     "express": "^4.13.4",
+    "gulp": "^3.9.1",
+    "gulp-babel": "^6.1.2",
     "jasmine": "^2.4.1",
     "nodemon": "^1.9.2",
     "socket.io": "^1.4.6"
@@ -39,8 +43,7 @@
   "babel": {
     "presets": [
       "es2015"
-    ],
-    "plugins": [ "transform-inline-environment-variables" ]
+    ]
   },
   "dependencies": {
     "async": "^2.0.0-rc.6",
