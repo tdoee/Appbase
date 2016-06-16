@@ -56,6 +56,27 @@ app.initialize({})
 
 > También se utilizando la función `Appbase.initialize({})` este obtiene un valor por defecto `DEFAULT`, pudiendo acceder a ella con `Appbase.ENV('DEFAULT')` o `Appbase.ENV()`.
 
+## Opciones
+Appbase utiliza opciones para manejar las distintas características y funciones de la aplicación. para lo que se utiliza la función `get` y `set` para cambiar el valor de cada una de ellas.
+
+### Obtiene el valor de una opción definida
+Usamos `app#get(name)` para obtener el nombre de opción definida.
+
+```javascript
+// Ejemplo
+app.get('url')
+app.get('time relay')
+```
+
+#### Definir una opción
+Usamo `app#set(name, value)` para definir una opción.
+
+```javascript
+// Ejemplo
+app.set('url', 'http://ejemplo.com/appbase_api_service/')
+app.set('delay', 4000) // ms
+```
+
 [import - javascript]: https://developer.mozilla.org/en/docs/web/javascript/reference/statements/import
 [NPM]: https://www.npmjs.com/
 [Window.location]: https://developer.mozilla.org/en-US/docs/Web/API/Window/location
