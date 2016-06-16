@@ -57,8 +57,8 @@ export class TransportFetch extends Transport {
       }
       let _each = () => {}
       let feed = {
-        each = ( fn ) => { _each = fn },
-        close = () => { clearInterval( codeInterval ) }
+        each: ( fn ) => { _each = fn },
+        close: () => { clearInterval( codeInterval ) },
       }
 
       codeInterval = setInterval( () => {
@@ -68,7 +68,6 @@ export class TransportFetch extends Transport {
       }, delay )
 
       resolve( feed )
-
     } )
   }
 }
