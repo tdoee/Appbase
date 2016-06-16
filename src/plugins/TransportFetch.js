@@ -50,6 +50,8 @@ export class TransportFetch extends Transport {
 
   value( data ) {
     return new Promise( ( resolve, reject ) => {
+      if ( process.env.NODE_ENV == 'production' ) return reject( new Error( 'Function Disabled' ) )
+
       let delay = 2000
       let codeInterval
       let close = () => {
