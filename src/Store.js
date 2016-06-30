@@ -4,7 +4,7 @@ export class Store {
 	constructor( app ) {
 		this[ appbaseSymbol ] = app
 	}
-	appbase() {
+	get appbase() {
 		return this[ appbaseSymbol ]
 	}
 

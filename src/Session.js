@@ -1,20 +1,21 @@
 import { appbaseSymbol } from './Appbase'
 
+// state
 export class Session {
 
 	constructor( app, tokenId ) {
-		this[ appbaseSymbol ] = app;
-		this.tokenId = tokenId;
+		this[ appbaseSymbol ] = app
+		this.tokenId = tokenId
 	}
 
-	appbase() {
+	get appbase() {
 		return this[ appbaseSymbol ]
 	}
 
 	clear() {
-		return new Promise( ( fulfill, reject ) => {
+		return new Promise( ( resolve, reject ) => {
 			//content
-		} );
+		} )
 	}
 
 }

@@ -4,7 +4,6 @@ import bodyParser from 'body-parser'
 
 
 export class TransportServerFetch extends TransportServer {
-
   constructor( appexpress = void 0 ) {
     super()
     this.appexpress = appexpress

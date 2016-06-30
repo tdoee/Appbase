@@ -10,7 +10,7 @@ export class DataBase {
 
 	ref( referenceName ) {}
 
-	appbase() {
+	get appbase() {
 		return this[ appbaseSymbol ]
 	}
 

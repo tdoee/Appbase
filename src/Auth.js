@@ -4,24 +4,23 @@ export class Auth {
 
 	constructor( app ) {
 		this[ appbaseSymbol ] = app;
-		this.currentUser=null;
+		this.currentUser = null;
 	}
 
-	appbase() {
+	get appbase() {
 		return this[ appbaseSymbol ]
 	}
 
-
-	signInWithEmail(email){
-		return new Promise((fulfill,reject) => {
+	signInWithEmail( email ) {
+		return new Promise( ( fulfill, reject ) => {
 			//content
-		});
+		} );
 	}
 
-	signInWithEmailAndPassword(email,password){
-		return new Promise((fulfill,reject) => {
+	signInWithEmailAndPassword( email, password ) {
+		return new Promise( ( fulfill, reject ) => {
 			//content
-		});
+		} );
 	}
 
 }

@@ -6,7 +6,7 @@ export class Reference {
 		this[appbaseSymbol] = app;
 	}
 
-	appbase() {
+	get appbase() {
 		return this[ appbaseSymbol ]
 	}
 

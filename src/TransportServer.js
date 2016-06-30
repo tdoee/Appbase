@@ -17,6 +17,8 @@ export class TransportServer {
 		return this[ symbolUses ].get( name )
 	}
 
+	setUp() {}
+
 	/**
 	 * 	Usada para modificar el comportamiento del request del servidor, el cual
 	 * 	como parámetro requiere una función con los. La función es ejecutada 

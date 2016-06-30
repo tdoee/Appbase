@@ -2,19 +2,26 @@ import SemVer from 'semver'
 import url from 'url'
 import TransportFetch from './plugins/TransportFetch'
 import Session from './session'
+import StoreLocalStore from './plugins/StoreLocalStore'
+import Auth from './Auth'
 
 export const appbaseSymbol = Symbol( 'Appbase' );
 export const appbaseOptionsSymbol = Symbol( 'Options' )
 export const appbaseTransportSymbol = Symbol( 'Transport' )
 export const appbaseSessionSymbol = Symbol( 'Session' )
+export const appbaseStoreSymbol = Symbol( 'Store' )
+export const appbaseDatabaseSymbol = Symbol( 'Database' )
+export const appbaseAuthSymbol = Symbol( 'Auth' )
 
 const versionAppbase = process.env.APPBASE_VERSION
 
 export class Appbase {
 	constructor( defaultOpts = {} ) {
-		let { transport = TransportFetch } = defaultOpts
+		let { transport = TransportFetch, store = StoreLocalStore, name = 'DEFAULT' } = defaultOpts
 		this[ appbaseOptionsSymbol ] = {}
 		this.set( 'transport', transport )
+		this.set( 'store', store )
+		this.set( 'name', name )
 	}
 
 	/**
@@ -26,7 +33,12 @@ export class Appbase {
 	 * @return {Appbase}                Aplicación ya configurada.
 	 */
 	initialize( opts = {} ) {
-		let { apiKey, url: URL = null, transport: TransportPluginsControl = this.get( 'transport' ) } = opts
+		let {
+			apiKey,
+			url: URL = null,
+			transport: TransportPluginsControl = this.get( 'transport' ),
+			store: StorePluginControl = this.get( 'store' ),
+		} = opts
 		/*
 		 * En caso de usar un browser utiliza 
 		 */
@@ -53,8 +65,12 @@ export class Appbase {
 			this.set( 'apiKey', apiKey )
 		}
 
+		this[ appbaseAuthSymbol ] = new Auth( this )
+
+		this[ appbaseStoreSymbol ] = new StorePluginControl( this )
+
 		// Memoria con la session actual
-		this[ appbaseSessionSymbol ] = new Session( this, this.get( 'apiKey' ) )
+		this[ appbaseSessionSymbol ] = new Session( this )
 
 		// Genera el transportador base para la comunicación
 		this[ appbaseTransportSymbol ] = new TransportPluginsControl( this, this.get( 'url' ) )
@@ -110,15 +126,25 @@ export class Appbase {
 		return this[ appbaseTransportSymbol ]
 	}
 
-	get database() {}
-	get session() {}
+	get database() {
+		return this[ appbaseDatabaseSymbol ]
+	}
+	get session() {
+		return this[ appbaseSessionSymbol ]
+	}
+	get store() {
+		return this[ appbaseStoreSymbol ]
+	}
+	get auth() {
+		return this[ appbaseAuthSymbol ]
+	}
 }
 
 /**
  * Experimental function
  */
 const _APP_ENVS = new Map()
-Appbase.ENV = ( name = 'DEFAULT' ) => _APP_ENVS.has( name ) ? _APP_ENVS.get( name ) : ( _APP_ENVS.set( name, ( new Appbase() ) ) && _APP_ENVS.get( name ) )
+Appbase.ENV = ( name = 'DEFAULT' ) => _APP_ENVS.has( name ) ? _APP_ENVS.get( name ) : ( _APP_ENVS.set( name, ( new Appbase( { name } ) ) ) && _APP_ENVS.get( name ) )
 
 Appbase.VERSION = versionAppbase
 Appbase.initialize = function( opts, NAMEENV = 'DEFAULT' ) {
