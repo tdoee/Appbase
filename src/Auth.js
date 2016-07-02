@@ -12,13 +12,28 @@ export class Auth {
 	}
 
 	signInWithEmail( email ) {
-		return new Promise( ( fulfill, reject ) => {
+		return new Promise( ( resolve, reject ) => {
 			//content
+			this
+				.appbase
+				.transport
+				.request({
+					path: '/auth/signInWithEmail',
+					data: {
+						email,
+					},
+				})
+				.then(( ...e ) => {
+					console.log( `sus:`, [...e] )
+				})
+				.catch((e) => {
+					reject( e )
+				})	
 		} );
 	}
 
 	signInWithEmailAndPassword( email, password ) {
-		return new Promise( ( fulfill, reject ) => {
+		return new Promise( ( resolve, reject ) => {
 			//content
 		} );
 	}

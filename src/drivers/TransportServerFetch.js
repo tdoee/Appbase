@@ -1,6 +1,7 @@
 import TransportServer from '../TransportServer'
 import express from 'express'
 import bodyParser from 'body-parser'
+import cors from 'cors'
 
 
 export class TransportServerFetch extends TransportServer {
@@ -22,6 +23,11 @@ export class TransportServerFetch extends TransportServer {
    */
   setUp( appexpress = this.appexpress, prefixRoute = '/' ) {
     let router = express.Router()
+    router.use( cors({
+      origin: '*',
+      methods: ['POST'],
+      allowedHeaders: ['Content-Type', 'tokenId', 'sessionId'],
+    }) )
     router.use( bodyParser.json() )
 
     // por cada request sin importar el tipo
@@ -31,6 +37,17 @@ export class TransportServerFetch extends TransportServer {
       // Formando los header
       req.transport_head = {
         body: req.body,
+        customPath: (prefix) => `${prefix}${do {
+          if (typeof(req.body.path) === 'string') {
+            if (req.body.path[0] == '/') {
+              req.body.path
+            } else {
+              `/${req.body.path}`
+            }
+          } else {
+            `/`
+          }
+        }}`,
       }
       req.transport_body = {}
 
@@ -39,9 +56,11 @@ export class TransportServerFetch extends TransportServer {
 
     // api/push
     router.post( '/push', ( req, res, next ) => {
+      req.transport_head.path = req.transport_head.customPath('push')
+
       this
-        .request( 'push', req.transport_head, req.transport_body )
-        .then( ( { head, data } ) => {
+        .exec( req.transport_head.path, req.transport_head, req.transport_body )
+        .then( () => {
           res.json( {
             status: 'ok',
           } )
@@ -53,9 +72,11 @@ export class TransportServerFetch extends TransportServer {
 
     // api/update
     router.post( '/update', ( req, res, next ) => {
+      req.transport_head.path = req.transport_head.customPath('update')
+
       this
-        .request( 'update', req.transport_head, req.transport_body )
-        .then( ( { head, data } ) => {
+        .exec( req.transport_head.path, req.transport_head, req.transport_body )
+        .then( () => {
           res.json( {
             status: 'ok',
           } )
@@ -67,9 +88,11 @@ export class TransportServerFetch extends TransportServer {
 
     // api/remove
     router.post( '/remove', ( req, res, next ) => {
+      req.transport_head.path = req.transport_head.customPath('remove')
+
       this
-        .request( 'remove', req.transport_head, req.transport_body )
-        .then( ( { head, data } ) => {
+        .exec( req.transport_head.path, req.transport_head, req.transport_body )
+        .then( () => {
           res.json( {
             status: 'ok',
           } )
@@ -81,9 +104,11 @@ export class TransportServerFetch extends TransportServer {
 
     // api/set
     router.post( '/set', ( req, res, next ) => {
+      req.transport_head.path = req.transport_head.customPath('set')
+
       this
-        .request( 'set', req.transport_head, req.transport_body )
-        .then( ( { head, data } ) => {
+        .exec( req.transport_head.path, req.transport_head, req.transport_body )
+        .then( () => {
           res.json( {
             status: 'ok',
           } )
@@ -95,10 +120,12 @@ export class TransportServerFetch extends TransportServer {
 
     // api/request
     router.post( '/request', ( req, res, next ) => {
+      req.transport_head.path = req.transport_head.customPath('request')
+
       this
-        .request( 'request', req.transport_head, req.transport_body )
-        .then( ( { head, data } ) => {
-          res.json( data )
+        .exec( req.transport_head.path, req.transport_head, req.transport_body )
+        .then( () => {
+          res.json( req.transport_body )
         } )
         .catch( err => {
           next( err )

@@ -17,7 +17,7 @@ export class TransportFetch extends Transport {
           'tokenId': 'testToken',
           'sessionId': 'testSession',
         },
-        body: JSON.stringify( body ),
+        'body': JSON.stringify( body ),
       } )
       .then( res => {
         if ( res.ok ) {

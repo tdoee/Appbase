@@ -1,4 +1,6 @@
 import waterfall from 'async/waterfall'
+// import PathExec from 'path-exec'
+import PathExec from 'C:/Users/alfa30/Repositories/path-exec/index.js'
 
 let symbolUses = Symbol( 'Uses' )
 
@@ -8,6 +10,8 @@ let symbolUses = Symbol( 'Uses' )
 export class TransportServer {
 	constructor() {
 		this[ symbolUses ] = new Map()
+
+		this.paths = new PathExec()
 	}
 
 	getGroup( name ) {
@@ -34,24 +38,53 @@ export class TransportServer {
 	 *                          		se requerida por una solicitud.
 	 * @return {TransportServer}        Retorna el mismo objeto.
 	 */
-	use( evalVar, ...onlyfns ) {
-		let groupName
-		let fns
-		if ( typeof evalVar === 'function' ) {
-			fns = [ evalVar, ...onlyfns ]
-			groupName = '*'
+	use( ...params ) {
+		let path, fns
+
+		if (typeof(params[0]) === 'string') {
+			[path, ...fns] = params
+
+			path = `:method/${path}`
 		} else {
-			groupName = evalVar
-			fns = onlyfns
+			[...fns] = params
+			path = ':method/*'
 		}
 
-		let groupAll = this.getGroup( '*' )
-		let group = this.getGroup( groupName )
+		this.paths.use(path, ["method"], ...fns)
 
-		for ( const fn of fns ) {
-			groupAll.add( fn )
-			group.add( fn )
+		return this
+	}
+
+	request(...params) {
+		let path, fns
+
+		if (typeof(params[0]) === 'string') {
+			[path, ...fns] = params
+
+			path = `request/${path}`
+		} else {
+			[...fns] = params
+			path = 'request/*'
 		}
+
+		this.paths.use(path, [], ...fns)
+
+		return this
+	}
+
+	push(...params) {
+		let path, fns
+
+		if (typeof(params[0]) === 'string') {
+			[path, ...fns] = params
+
+			path = `push/${path}`
+		} else {
+			[...fns] = params
+			path = 'push/*'
+		}
+
+		this.paths.use(path, [], ...fns)
 
 		return this
 	}
@@ -64,31 +97,8 @@ export class TransportServer {
 	 * @param  {Object} data 			Data a enviar.
 	 * @return {Promise}      			Cuando la operación aya concluido.
 	 */
-	request( groupName = '*', head = {}, data = {} ) {
-		return new Promise( ( resolve, reject ) => {
-			let group = this.getGroup( groupName )
-
-			let tasks = [ ...group.values() ]
-				.map( fn => next => {
-					let pr = fn( head, data, next )
-					if ( pr instanceof Promise ) {
-						pr
-							.then( () => {
-								next()
-							} )
-							.catch( err => {
-								next( err )
-							} )
-					}
-				} )
-			waterfall( tasks, ( err, r ) => {
-				if ( err ) {
-					reject( err )
-				} else {
-					resolve( { head, data } )
-				}
-			} )
-		} )
+	exec( path, head = {}, data = {} ) {
+		return this.paths.exec(path, head, data)
 	}
 }
 

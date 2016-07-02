@@ -9,7 +9,7 @@ const task = ::gulp.task,
 
 process.env.APPBASE_VERSION = pkg.version && `v${pkg.version}`
 
-task( 'build', () => src( 'src/**/*.js' )
+task( 'source', () => src( 'src/**/*.js' )
 	.pipe( babel( {
 		"plugins": [
 			"transform-inline-environment-variables"
@@ -17,4 +17,10 @@ task( 'build', () => src( 'src/**/*.js' )
 	} ) )
 	.pipe( dest( 'lib' ) ) )
 
+task( 'source:watch', () => {
+	watch( [ 'src/**/*.js' ], [ 'source' ] )
+} )
+
+task( 'build', [ 'source' ] )
+task( 'watch', [ 'build', 'source:watch' ] )
 task( 'default', [ 'build' ] )
