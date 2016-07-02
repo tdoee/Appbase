@@ -3,12 +3,16 @@ import PathExec from 'path-exec'
 let SymbolPaths = Symbol( 'paths' )
 
 export class Auth {
-	constructor( app ) {
-		this.app = app
+	constructor( appbase ) {
+		this.appbase = appbase
 	}
 
 	signInWithEmail( cb ) {
-		// this.use( '/auth/signInWithEmail', cb )
+		this.appbase
+			.transport
+			.request('auth/signInWithEmail', (params, head, body, next) => {
+				cb(head.body.data.email, next)
+			})
 	}
 }
 
@@ -21,17 +25,7 @@ export class Server {
 		this[ SymbolPaths ] = new PathExec()
 		this.transport = transport
 
-
-		// this.transport.use( 'request' , () => {
-			
-		// } )
-
-
 		this.auth = new Auth( this )
-	}
-
-	use( path, ...fns ) {
-		// this[ SymbolPaths ].use( path, ...fns )
 	}
 }
 
