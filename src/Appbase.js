@@ -17,8 +17,14 @@ const versionAppbase = process.env.APPBASE_VERSION
 
 export class Appbase {
 	constructor( defaultOpts = {} ) {
-		let { transport = TransportFetch, store = StoreLocalStore, name = 'DEFAULT' } = defaultOpts
+		let {
+			transport = TransportFetch,
+			store = StoreLocalStore,
+			name = 'DEFAULT',
+		} = defaultOpts
+
 		this[ appbaseOptionsSymbol ] = {}
+
 		this.set( 'transport', transport )
 		this.set( 'store', store )
 		this.set( 'name', name )

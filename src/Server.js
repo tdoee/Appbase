@@ -11,7 +11,10 @@ export class Auth {
 		this.appbase
 			.transport
 			.request('auth/signInWithEmail', (params, head, body, next) => {
-				cb(head.body.data.email, next)
+				cb(head.body.data.email, (session /* define a id by session */) => {
+					body.session = session // Send Session id
+					next()
+				})
 			})
 	}
 }

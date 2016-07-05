@@ -14,7 +14,7 @@ export class TransportFetch extends Transport {
         method,
         headers: {
           'Content-Type': 'application/json',
-          'tokenId': 'testToken',
+          'tokenId': this.appbase.session.tokenId,
           'sessionId': 'testSession',
         },
         'body': JSON.stringify( body ),

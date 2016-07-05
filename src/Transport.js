@@ -14,11 +14,11 @@ export class Transport {
 	}
 
 	resolveUrl( urlToResolve ) {
-		console.log({
-			url,
-			'this.url': this.url,
-			urlToResolve,
-		})
+		// console.log({
+		// 	url,
+		// 	'this.url': this.url,
+		// 	urlToResolve,
+		// })
 		return url.resolve( this.url, urlToResolve )
 	}
 

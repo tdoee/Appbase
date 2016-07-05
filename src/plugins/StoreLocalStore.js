@@ -21,7 +21,7 @@ export class StoreLocalStore extends Store {
 		localStorage.setItem( this.prefix + path, JSON.stringify( value ) )
 	}
 	get( path, defaultValue = undefined ) {
-		return ( localStorage.getItem( this.prefix + path ) || defaultValue )
+		return ( JSON.parse(localStorage.getItem( this.prefix + path )) || defaultValue )
 	}
 	has( path ) {
 		return localStorage.hasOwnProperty( this.prefix + path )

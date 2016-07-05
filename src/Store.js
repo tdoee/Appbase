@@ -1,5 +1,8 @@
 import { appbaseSymbol } from './Appbase'
 
+/*
+Almacena la memoria usadas de forma local
+ */
 export class Store {
 	constructor( app ) {
 		this[ appbaseSymbol ] = app

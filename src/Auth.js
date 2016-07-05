@@ -11,6 +11,9 @@ export class Auth {
 		return this[ appbaseSymbol ]
 	}
 
+	/*
+	Envia un email para validar la sesion
+	 */
 	signInWithEmail( email ) {
 		return new Promise( ( resolve, reject ) => {
 			//content
@@ -23,13 +26,25 @@ export class Auth {
 						email,
 					},
 				})
-				.then(( ...e ) => {
-					console.log( `sus:`, [...e] )
+				.then(( session ) => {
+					// console.log( `sus:`, [...e] )
+					resolve(session)
 				})
 				.catch((e) => {
 					reject( e )
 				})	
 		} );
+	}
+
+	/*
+	Utiliza un codigo random para validar la cuenta, este proceso utiliza
+	previamente `signInWithEmail`.
+	 */
+	signInWithCodeTokenId(code, tokenId) {
+		console.log({code, tokenId})
+		return new Promise( (resolve, reject) => {
+
+		} )
 	}
 
 	signInWithEmailAndPassword( email, password ) {
