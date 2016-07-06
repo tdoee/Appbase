@@ -10,12 +10,26 @@ export class TransportFetch extends Transport {
   }
 
   _fetch( method, path, body ) {
+
+    if (process.env.NODE_ENV !== 'production') {
+      console.debug(`Send a request method:${method}` , {
+        'tokenId': this.appbase.session.tokenId,
+        'body': body,
+      })
+    }
+
     return fetch( URL.resolve( this.url, path ), {
         method,
         headers: {
           'Content-Type': 'application/json',
+          /*
+          Usada para identificar una session en el servidor
+           */
           'tokenId': this.appbase.session.tokenId,
-          'sessionId': 'testSession',
+          /*
+          Identificada para validar la session con el servidor
+           */
+          // 'sessionId': 'testSession',
         },
         'body': JSON.stringify( body ),
       } )

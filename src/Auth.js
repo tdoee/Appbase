@@ -12,6 +12,15 @@ export class Auth {
 	}
 
 	/*
+	Obtiene los datos del usuario
+	 */
+	pullCurrenUser() {
+		return new Promise((resolve, reject) => {
+
+		})
+	}
+
+	/*
 	Envia un email para validar la sesion
 	 */
 	signInWithEmail( email ) {
@@ -41,9 +50,21 @@ export class Auth {
 	previamente `signInWithEmail`.
 	 */
 	signInWithCodeTokenId(code, tokenId) {
-		console.log({code, tokenId})
+		// console.log({code, tokenId})
 		return new Promise( (resolve, reject) => {
-
+			this.appbase
+				.transport
+				.request({
+					path: '/auth/signInWithCodeTokenId',
+					data: {
+						tokenId, // token asociado a la session
+						code, // Codigo de validación
+					},
+				})
+				.then((data) => {
+					resolve(data)
+				})
+				.catch(err => reject(err))
 		} )
 	}
 
