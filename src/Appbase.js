@@ -4,13 +4,14 @@ import TransportFetch from './plugins/TransportFetch'
 import Session from './session'
 import StoreLocalStore from './plugins/StoreLocalStore'
 import Auth from './Auth'
+import DataBase from './DataBase'
 
 export const appbaseSymbol = Symbol( 'Appbase' );
 export const appbaseOptionsSymbol = Symbol( 'Options' )
 export const appbaseTransportSymbol = Symbol( 'Transport' )
 export const appbaseSessionSymbol = Symbol( 'Session' )
 export const appbaseStoreSymbol = Symbol( 'Store' )
-export const appbaseDatabaseSymbol = Symbol( 'Database' )
+export const appbaseDatabaseSymbol = Symbol( 'DataBase' )
 export const appbaseAuthSymbol = Symbol( 'Auth' )
 
 const versionAppbase = process.env.APPBASE_VERSION
@@ -80,6 +81,9 @@ export class Appbase {
 
 		// Genera el transportador base para la comunicación
 		this[ appbaseTransportSymbol ] = new TransportPluginsControl( this, this.get( 'url' ) )
+
+		// Base de datos
+		this[ appbaseDatabaseSymbol ] = new DataBase( this )
 
 		return this
 	}

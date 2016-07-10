@@ -11,11 +11,11 @@ export class Auth {
 		this.appbase
 			.transport
 			.request('auth/signInWithEmail', (params, head, body, next) => {
-				cb(head.body.data.email, (err, idsession /* define a id by session */) => {
+				cb(head.body.data.email, (err, session /* define a id by session */) => {
 					if (err) {
 						next(err)
 					} else {
-						body.session = idsession // Send Session id
+						body.session = session // Send Session id
 						next()
 					}
 				})
@@ -28,11 +28,11 @@ export class Auth {
 			.request('auth/signInWithCodeTokenId', (params, head, body, next) => {
 				let {tokenId, code} = head.body.data
 
-				cb(tokenId, code, (err) => {
+				cb(tokenId, code, (err, session) => {
 					if (err) {
 						next(err)
 					} else {
-						body.session = true
+						body.session = session
 						next()
 					}
 				})
@@ -43,7 +43,32 @@ export class Auth {
 		this.appbase
 			.transport
 			.request('auth/currenUser', (params, head, body, next) => {
-				
+				let { tokenId } = head
+
+				cb(tokenId, (err, session) => {
+					if (err) { next(err) }
+					else {
+						body.session = session
+						next()
+					}
+				})
+			})
+	}
+
+	checkToken(cb) {
+		this.appbase
+			.transport
+			.request('session/check', (params, head, body, next) => {
+				let { tokenId } = head
+
+				cb(tokenId, (err, status) => {
+					if (err) {
+						next(err)
+					} else {
+						body.status = status
+						next()
+					}
+				})
 			})
 	}
 

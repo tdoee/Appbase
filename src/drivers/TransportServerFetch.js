@@ -36,6 +36,7 @@ export class TransportServerFetch extends TransportServer {
 
       // Formando los header
       req.transport_head = {
+        tokenId: req.header('tokenId'),
         body: req.body,
         customPath: (prefix) => `${prefix}${do {
           if (typeof(req.body.path) === 'string') {

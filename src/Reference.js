@@ -1,9 +1,10 @@
 import { appbaseSymbol } from './Appbase'
 
 export class Reference {
-
-	constructor( app ) {
+	constructor( app, database, refname) {
 		this[appbaseSymbol] = app;
+		this.database = database
+		this.refname = refname
 	}
 
 	get appbase() {
@@ -15,7 +16,6 @@ export class Reference {
 			//content
 		});
 	}
-
 }
 
 export default Reference

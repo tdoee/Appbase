@@ -40,6 +40,12 @@ export class TransportFetch extends Transport {
           return Promise.reject( new Error( res.statusText ) )
         }
       } )
+      .then(bodydata => {
+        // Custom parameters
+        bodydata.at = (child) => bodydata[child] ? Promise.resolve(bodydata[child]) : Promise.reject(new Error(`No defined ${child}`))
+
+        return Promise.resolve(bodydata)
+      })
   }
 
   request( data ) {

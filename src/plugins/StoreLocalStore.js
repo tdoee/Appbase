@@ -29,7 +29,9 @@ export class StoreLocalStore extends Store {
 	delete( path, use_prefix = true ) {
 		localStorage.removeItem( ( use_prefix ? this.prefix : '' ) + path )
 	}
-	save() {}
+	save() {
+		return Promise.resolve() // Ok Save
+	}
 	clear() {
 		let regxfind = new RegExp( `^${ String( this.prefix ).replace( /([^a-z0-9])/g, "\\$1" ) }`, 'i' )
 		Object.keys( localStorage )

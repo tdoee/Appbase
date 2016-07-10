@@ -2,7 +2,6 @@ import { appbaseSymbol } from './Appbase'
 import url from 'url'
 
 export class Transport {
-
 	constructor( app, url = void 0 ) {
 		this[ appbaseSymbol ] = app;
 
@@ -14,11 +13,6 @@ export class Transport {
 	}
 
 	resolveUrl( urlToResolve ) {
-		// console.log({
-		// 	url,
-		// 	'this.url': this.url,
-		// 	urlToResolve,
-		// })
 		return url.resolve( this.url, urlToResolve )
 	}
 
