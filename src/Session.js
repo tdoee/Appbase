@@ -132,6 +132,14 @@ export class Session {
 		return Promise.resolve()
 	}
 
+	// Use Save process service
+	save() {
+		return Promise.resolve()
+	}
+
+	load() {
+		return Promise.resolve()
+	}
 }
 
 export default Session

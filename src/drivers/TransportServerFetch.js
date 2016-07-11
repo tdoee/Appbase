@@ -133,6 +133,29 @@ export class TransportServerFetch extends TransportServer {
         } )
     } )
 
+
+    /*
+    Use Errors
+     */
+    router.use( function(err, req, res, next) {
+      let error = {}
+
+      console.error(err.stack)
+
+      /* Use --production to ignore this */
+      if (process.env.NODE_ENV !== 'production') {
+        error.stack = err.stack
+      }
+
+      error.name = err.name
+      error.message = err.message
+
+      res.json({
+        error,
+      })
+    })
+
+
     // los path comienzan con /api/
     if ( appexpress ) {
       appexpress.use( prefixRoute, router )

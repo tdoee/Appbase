@@ -1,5 +1,5 @@
 import { appbaseSymbol } from '../Appbase'
-import Transport from '../Transport'
+import Transport, { ErrorTransportServer } from '../Transport'
 import fetch from 'node-fetch'
 import URL from 'url'
 
@@ -10,11 +10,13 @@ export class TransportFetch extends Transport {
   }
 
   _fetch( method, path, body ) {
+    let {currentUser = {}} = this.appbase.auth
+    let {tokenId} = currentUser 
 
     if (process.env.NODE_ENV !== 'production') {
       console.debug(`Send a request method:${method}` , {
-        'tokenId': this.appbase.session.tokenId,
-        'body': body,
+        tokenId,
+        body,
       })
     }
 
@@ -25,7 +27,7 @@ export class TransportFetch extends Transport {
           /*
           Usada para identificar una session en el servidor
            */
-          'tokenId': this.appbase.session.tokenId,
+          tokenId,
           /*
           Identificada para validar la session con el servidor
            */
@@ -41,8 +43,16 @@ export class TransportFetch extends Transport {
         }
       } )
       .then(bodydata => {
+        /*
+        When exists a error
+         */
+        if ('error' in bodydata) {
+          const {error:{name,message,stack = ''} = {}} = bodydata
+          return Promise.reject(new ErrorTransportServer(name,message,stack))
+        }
+
         // Custom parameters
-        bodydata.at = (child) => bodydata[child] ? Promise.resolve(bodydata[child]) : Promise.reject(new Error(`No defined ${child}`))
+        bodydata.at = (child) => child in bodydata ? Promise.resolve(bodydata[child]) : Promise.reject(new Error(`No defined ${child}`))
 
         return Promise.resolve(bodydata)
       })

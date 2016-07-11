@@ -72,8 +72,6 @@ export class Appbase {
 			this.set( 'apiKey', apiKey )
 		}
 
-		this[ appbaseAuthSymbol ] = new Auth( this )
-
 		this[ appbaseStoreSymbol ] = new StorePluginControl( this )
 
 		// Memoria con la session actual
@@ -81,6 +79,8 @@ export class Appbase {
 
 		// Genera el transportador base para la comunicación
 		this[ appbaseTransportSymbol ] = new TransportPluginsControl( this, this.get( 'url' ) )
+
+		this[ appbaseAuthSymbol ] = new Auth( this )
 
 		// Base de datos
 		this[ appbaseDatabaseSymbol ] = new DataBase( this )
