@@ -13,6 +13,11 @@ export class TransportFetch extends Transport {
     let {currentUser = {}} = this.appbase.auth
     let {tokenId} = currentUser 
 
+    /* Parse Body */
+    if ('path' in body && typeof(body.path) === 'string') {
+      body.path = body.path.split('/').filter(Boolean).join('/')
+    }
+
     if (process.env.NODE_ENV !== 'production') {
       console.debug(`Send a request method:${method}` , {
         tokenId,

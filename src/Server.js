@@ -1,6 +1,8 @@
 import PathExec from 'path-exec'
 import waterfall from 'async/waterfall'
 
+let normalizePath = (p) => p.split('/').filter(Boolean).join('/')
+
 let SymbolPaths = Symbol( 'paths' )
 
 export class Reference {
@@ -13,15 +15,20 @@ export class Reference {
 		this.appbase
 			.transport
 			.request('database/(.*)', (params, head, body, next) => {
-				let {path, action} = head.body
+				let {path, action, value} = head.body
 
-				let [,ref] = /^\/?database\/(.*)$/.exec(path)
+				/* Get Path to reference */
+				let [,ref] = /^database\/(.*)$/.exec(normalizePath(path))
 
-				console.log(`use this ref: ${ref}`)
+				// console.log(`use this ref: ${ref}`)
+				/* Variable de Transferencia */
+				let t = {}
+				/* Transfer Header */
+				let thead = {ref,value,head}
 
 				waterfall([
 					/* Use preventcb */
-					nextStep => this.preventcb(ref, (err, progress = false) => {
+					nextStep => this.preventcb(thead, (err, progress = false) => {
 						if (err) nextStep(err)
 
 						if (progress === true) {
@@ -31,7 +38,7 @@ export class Reference {
 						}
 					}),
 					/* Use the callback to this method */
-					stepEnd => cb(action, ref, (err, data) => {
+					stepEnd => cb(action, thead, (err, data) => {
 						if (err) stepEnd(err)
 						else {
 							body[`ref.${action}`] = data

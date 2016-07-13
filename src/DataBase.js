@@ -9,8 +9,8 @@ export class DataBase {
 		this.transport = this.appbase.transport;
 	}
 
-	ref( referenceName ) {
-		return new Reference(this.appbase, this, referenceName)
+	ref( referenceName , opts = {}) {
+		return new Reference(this.appbase, this, referenceName, opts)
 	}
 
 	get appbase() {

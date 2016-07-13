@@ -4,6 +4,9 @@ import bodyParser from 'body-parser'
 import cors from 'cors'
 
 
+/* Utilidad */
+const normalizePath = p => p.split('/').filter(Boolean).join('/')
+
 export class TransportServerFetch extends TransportServer {
   constructor( appexpress = void 0 ) {
     super()
@@ -34,21 +37,16 @@ export class TransportServerFetch extends TransportServer {
     router.use( function( req, res, next ) {
       req.accepts( "json" )
 
+      /* Parse path */
+      if ('body' in req && 'path' in req.body && typeof req.body.path === 'string') {
+        req.body.path = normalizePath(req.body.path)
+      }
+
       // Formando los header
       req.transport_head = {
         tokenId: req.header('tokenId'),
         body: req.body,
-        customPath: (prefix) => `${prefix}${do {
-          if (typeof(req.body.path) === 'string') {
-            if (req.body.path[0] == '/') {
-              req.body.path
-            } else {
-              `/${req.body.path}`
-            }
-          } else {
-            `/`
-          }
-        }}`,
+        customPath: (prefix) => normalizePath(`${prefix}/${req.body.path}`),
       }
       req.transport_body = {}
 

@@ -2,11 +2,14 @@ import { appbaseSymbol } from './Appbase'
 import url from 'url'
 
 export class ErrorTransportServer extends Error {
-	constructor(name, message, /* Optional!DEV */ stack) {
+	constructor(name, message, /* Optional!DEV */ stack = false) {
 		super(message)
 		this.name = name
 		this.message = message
-		this.stack = stack
+
+		if (stack) {
+			this.stack = stack + "\n" + this.stack
+		}
 	}
 }
 
