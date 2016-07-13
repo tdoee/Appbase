@@ -6,8 +6,7 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 ### Added
  - API server
  - API Cliente
- - Integra Transporter para [Fetch]
- - Integra Transporter para [Socket.io]
+ - Integra Transporter
  - 💟 Incializa Appbase
 
 [Socket.io]: http://socket.io/docs/
