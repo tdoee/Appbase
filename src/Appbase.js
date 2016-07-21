@@ -1,10 +1,12 @@
 import SemVer from 'semver'
 import url from 'url'
-import TransportFetch from './plugins/TransportFetch'
+// import TransportFetch from './plugins/TransportFetch'
 import Session from './session'
 import StoreLocalStore from './plugins/StoreLocalStore'
+import TransportSocketIO from './drivers/TransportSocketIO.js'
 import Auth from './Auth'
 import DataBase from './DataBase'
+import AppbaseError from './AppbaseError'
 
 export const appbaseSymbol = Symbol( 'Appbase' );
 export const appbaseOptionsSymbol = Symbol( 'Options' )
@@ -19,7 +21,7 @@ const versionAppbase = process.env.APPBASE_VERSION
 export class Appbase {
 	constructor( defaultOpts = {} ) {
 		let {
-			transport = TransportFetch,
+			transport = TransportSocketIO,
 			store = StoreLocalStore,
 			name = 'DEFAULT',
 		} = defaultOpts
@@ -77,13 +79,13 @@ export class Appbase {
 		// Memoria con la session actual
 		this[ appbaseSessionSymbol ] = new Session( this )
 
-		// Genera el transportador base para la comunicación
-		this[ appbaseTransportSymbol ] = new TransportPluginsControl( this, this.get( 'url' ) )
-
 		this[ appbaseAuthSymbol ] = new Auth( this )
 
 		// Base de datos
 		this[ appbaseDatabaseSymbol ] = new DataBase( this )
+
+		// Genera el transportador base para la comunicación
+		this[ appbaseTransportSymbol ] = new TransportPluginsControl( this/*, this.get( 'url' )*/ )
 
 		return this
 	}

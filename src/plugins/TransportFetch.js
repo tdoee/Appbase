@@ -3,6 +3,9 @@ import Transport, { ErrorTransportServer } from '../Transport'
 import fetch from 'node-fetch'
 import URL from 'url'
 
+const normalizePathRoutes = (...path) => path.split('/').filter(Boolean).join('/')
+const normalizePathRoute = (path) => path.split('/').filter(Boolean).join('/')
+
 export class TransportFetch extends Transport {
 
   constructor( app, url = void 0 ) {
@@ -15,7 +18,7 @@ export class TransportFetch extends Transport {
 
     /* Parse Body */
     if ('path' in body && typeof(body.path) === 'string') {
-      body.path = body.path.split('/').filter(Boolean).join('/')
+      body.path = normalizePathRoute(body.path)
     }
 
     if (process.env.NODE_ENV !== 'production') {

@@ -60,6 +60,7 @@
   "dependencies": {
     "async": "^2.0.0-rc.6",
     "lodash": "^4.13.1",
+    "mixin": "^0.2.0",
     "node-fetch": "^1.5.3",
     "path-exec": "^0.1.4",
     "semver": "^5.1.0",

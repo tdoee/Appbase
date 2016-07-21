@@ -1,5 +1,6 @@
 import PathExec from 'path-exec'
 import waterfall from 'async/waterfall'
+import AppbaseError from './AppbaseError'
 
 let normalizePath = (p) => p.split('/').filter(Boolean).join('/')
 
@@ -11,6 +12,7 @@ export class Reference {
 		this.preventcb = preventcb
 	}
 
+	/* Use to all request */
 	on(cb) {
 		this.appbase
 			.transport
@@ -28,23 +30,35 @@ export class Reference {
 
 				waterfall([
 					/* Use preventcb */
-					nextStep => this.preventcb(thead, (err, progress = false) => {
-						if (err) nextStep(err)
+					nextStep => {
+						try {
+							this.preventcb(thead, (err, progress = false) => {
+								if (err) nextStep(err)
 
-						if (progress === true) {
-							nextStep()
-						} else{
-							nextStep(new Error('Is disabled this request'))
+								if (progress === true) {
+									nextStep()
+								} else{
+									nextStep(new Error('Is disabled this request'))
+								}
+							})
+						} catch (ex) {
+							nextStep(ex)
 						}
-					}),
+					},
 					/* Use the callback to this method */
-					stepEnd => cb(action, thead, (err, data) => {
-						if (err) stepEnd(err)
-						else {
-							body[`ref.${action}`] = data
-							stepEnd()
+					stepEnd => {
+						try {
+							cb(action, thead, (err, data) => {
+								if (err) stepEnd(err)
+								else {
+									body[`ref.${action}`] = data
+									stepEnd()
+								}
+							})
+						} catch (ex) {
+							stepEnd(ex)
 						}
-					})
+					},
 				], (err) => {
 					if (err) next(err)
 					else next()
