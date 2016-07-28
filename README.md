@@ -1,4 +1,9 @@
 # Appbase :rocket:
+
+[![GitHub issues](https://img.shields.io/github/issues/tdoee/appbase.svg)](https://github.com/tdoee/appbase/issues)
+[![GitHub forks](https://img.shields.io/github/forks/tdoee/appbase.svg)](https://github.com/tdoee/appbase/network)
+[![GitHub stars](https://img.shields.io/github/stars/tdoee/appbase.svg)](https://github.com/tdoee/appbase/stargazers)
+
 > ### :warning: This project is in development. Yet there is no release. 
 
 ![Appbase Background by tdoee][]
