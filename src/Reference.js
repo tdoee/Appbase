@@ -5,8 +5,8 @@ const __key_name_ref = Symbol('__key_name_ref')
 
 const QuerySqueletonNames = [
 	'orderBy',
-	'test1',
-	'test2',
+	'limit',
+	'getNearest',
 ]
 
 const QuerySqueletonNamesByReference = [
@@ -29,7 +29,7 @@ export class Query {
 			this[SetterSymbol](name, value)
 		}
 
-		console.log(this)
+		// console.log(this)
 	}
 
 	* [Symbol.iterator]() {
@@ -130,7 +130,7 @@ QuerySqueletonNames.forEach(n => {
 	if (n in Query.prototype || n in Reference.prototype) {
 		throw new Error(`Error with QuerySqueletonNames ${n} is name restricted`)
 	} else {
-		Query.prototype[n] = function (v) { return new Query(this.ref, this, n, v) }
+		Query.prototype[n] = function (...v) { return new Query(this.ref, this, n, v) }
 	}
 })
 
@@ -139,7 +139,7 @@ QuerySqueletonNames.forEach(n => {
 	if (n in Reference.prototype) {
 		throw new Error(`Error with QuerySqueletonNames ${n} is usder by Reference`)
 	} else {
-		Reference.prototype[n] = function (v) { return new Query(this, [], n, v) }
+		Reference.prototype[n] = function (...v) { return new Query(this, [], n, v) }
 	}
 })
 

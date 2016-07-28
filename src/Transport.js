@@ -1,5 +1,6 @@
 import { appbaseSymbol } from './Appbase'
 import url from 'url'
+import EventEmitter from 'events'
 
 export class ErrorTransportServer extends Error {
 	constructor(name, message, /* Optional!DEV */ stack = false) {
@@ -16,15 +17,49 @@ export class ErrorTransportServer extends Error {
 export class DisableElementError extends Error {}
 DisableElementError.prototype.code = 1400 /* Disabled element */
 
+const FnsConnectSymbol = Symbol('Events onconnect')
+const FnsConnectingSymbol = Symbol('Events onconnecting')
+const FnsUnconnectSymbol = Symbol('Events onconnect')
+const eventsSymbol = Symbol('Events')
+const connectStateSymbol = Symbol('Connect Status')
+
 export class Transport {
 	constructor( app, url = void 0 ) {
 		this[ appbaseSymbol ] = app;
+
+		this[ connectStateSymbol ] = Transport.DISCONNECT
+		this[ eventsSymbol ] = new EventEmitter
+
+		// cli event
+		this.onconnect
+		this.onconnecting
+		this.onunconnect
 
 		if ( url ) {
 			this.url = url
 		} else {
 			this.url = app.get( 'url' )
 		}
+	}
+
+	on(name, fn) {
+		if (name === 'disconnect' && this.connectState === 0) fn()
+		if (name === 'connecting' && this.connectState === 1) fn()
+		if (name === 'connected'  && this.connectState === 2) fn()
+
+		this[ eventsSymbol ].on(name, fn)
+	}
+
+	emit(name, ...args) {
+		if (name === 'disconnect') this[ connectStateSymbol ] = 0
+		if (name === 'connecting') this[ connectStateSymbol ] = 1
+		if (name === 'connected')  this[ connectStateSymbol ] = 2
+
+		this[ eventsSymbol ].emit(name, ...args)
+	}
+
+	get connectState() {
+		return this[ connectStateSymbol ]
 	}
 
 	resolveUrl( urlToResolve ) {
@@ -44,5 +79,9 @@ export class Transport {
 	/* Capturing a signal from server */
 	value() {return Promise.reject(new DisableElementError(`Transport.value() Is Disabled`))}
 }
+
+Transport.DISCONNECT = 0
+Transport.CONNECTING = 1
+Transport.CONNECTED = 2
 
 export default Transport

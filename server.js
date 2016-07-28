@@ -1,2 +1,2 @@
 
-module.exports = require('./src/Server')
+module.exports = require('./lib/Server')

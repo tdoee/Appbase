@@ -24,16 +24,26 @@ export class TransportSocketIO extends Transport {
 
 		console.log(`use this url ${this.appbase.get('url')}`)
 
-		this.io = global.io = socketIo(this.appbase.get('url'), {
+		this.io = socketIo(this.appbase.get('url'), {
 			query: `tokenId=${tokenId}`,
 			autoConnect: false,
 		})
+
+		if (process.env.NODE_ENV !== 'production') {
+			global.io = this.io
+		}
+
+		this.io.on('connect', () => this.emit('connected'))
+		this.io.on('disconnect', () => this.emit('disconnect'))
 
 		this.socketConnect()
 	}
 
 	socketConnect() {
-		this.io.connect()
+		if (this.io.connected === false) {
+			this.emit('connecting')
+			this.io.connect()
+		}
 	}
 
 	socketDisconnect() {

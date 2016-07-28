@@ -1,10 +1,40 @@
 import PathExec from 'path-exec'
 import waterfall from 'async/waterfall'
 import AppbaseError from './AppbaseError'
+import mime from 'mime'
 
 let normalizePath = (p) => p.split('/').filter(Boolean).join('/')
 
 let SymbolPaths = Symbol( 'paths' )
+
+export class Storage {
+	constructor (appbase) {
+		this.appbase = appbase
+	}
+
+	on(cb) {
+		this.appbase
+			.transport
+			.request('storage/(.*)', (params, head, body, next) => {
+				let {action, path, value:{/* Buffer file */file, metadata = {}}} = head.body
+
+				let [,ref] = /^storage\/(.*)/.exec(normalizePath(path))
+
+				try {
+					cb(ref, file, /* Callback */ (err, /* Array out spec file */ spec) => {
+						if (err) return next(err)
+						// if (!Array.isArray(spec)) return next(new TypeError('Spec returns is false'))
+
+						body.upload = spec
+
+						next(null)
+					})
+				} catch (ex) {
+					next(ex)
+				}
+			})
+	}
+}
 
 export class Reference {
 	constructor (appbase, preventcb) {
@@ -17,7 +47,7 @@ export class Reference {
 		this.appbase
 			.transport
 			.request('database/(.*)', (params, head, body, next) => {
-				let {path, action, value} = head.body
+				let {path, action, value, query} = head.body
 
 				/* Get Path to reference */
 				let [,ref] = /^database\/(.*)$/.exec(normalizePath(path))
@@ -26,7 +56,7 @@ export class Reference {
 				/* Variable de Transferencia */
 				let t = {}
 				/* Transfer Header */
-				let thead = {ref,value,head}
+				let thead = {ref, value, head, query}
 
 				waterfall([
 					/* Use preventcb */
@@ -179,6 +209,7 @@ export class Server {
 
 		this.auth = new Auth( this )
 		this.database = new Database( this )
+		this.storage = new Storage( this )
 	}
 }
 

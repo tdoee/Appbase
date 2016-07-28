@@ -7,6 +7,7 @@ import TransportSocketIO from './drivers/TransportSocketIO.js'
 import Auth from './Auth'
 import DataBase from './DataBase'
 import AppbaseError from './AppbaseError'
+import Storage from './Storage'
 
 export const appbaseSymbol = Symbol( 'Appbase' );
 export const appbaseOptionsSymbol = Symbol( 'Options' )
@@ -15,6 +16,7 @@ export const appbaseSessionSymbol = Symbol( 'Session' )
 export const appbaseStoreSymbol = Symbol( 'Store' )
 export const appbaseDatabaseSymbol = Symbol( 'DataBase' )
 export const appbaseAuthSymbol = Symbol( 'Auth' )
+export const appbaseStorageSymbol = Symbol( 'Storage' )
 
 const versionAppbase = process.env.APPBASE_VERSION
 
@@ -84,8 +86,11 @@ export class Appbase {
 		// Base de datos
 		this[ appbaseDatabaseSymbol ] = new DataBase( this )
 
+		// Storage
+		this[ appbaseStorageSymbol ] = new Storage( this )
+
 		// Genera el transportador base para la comunicación
-		this[ appbaseTransportSymbol ] = new TransportPluginsControl( this/*, this.get( 'url' )*/ )
+		this[ appbaseTransportSymbol ] = new TransportPluginsControl( this /*, this.get( 'url' )*/ )
 
 		return this
 	}
@@ -141,14 +146,21 @@ export class Appbase {
 	get database() {
 		return this[ appbaseDatabaseSymbol ]
 	}
+
 	get session() {
 		return this[ appbaseSessionSymbol ]
 	}
+
 	get store() {
 		return this[ appbaseStoreSymbol ]
 	}
+
 	get auth() {
 		return this[ appbaseAuthSymbol ]
+	}
+
+	get storage() {
+		return this[ appbaseStorageSymbol ]
 	}
 }
 

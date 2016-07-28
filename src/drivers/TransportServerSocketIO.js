@@ -50,6 +50,8 @@ export class TransportServerSocketIO extends TransportServer {
 						cb(void 0, transport_body)
 					})
 					.catch(err => {
+						console.error(err.stack)
+
 						let outErr = {}
 
 						outErr.code = err.code
