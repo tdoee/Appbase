@@ -1,9 +1,11 @@
 # Appbase :rocket:
+Write your project from frontend.
 
 [![npm](https://img.shields.io/npm/v/appbase.svg?maxAge=2592000)](https://www.npmjs.com/package/appbase)
 [![GitHub issues](https://img.shields.io/github/issues/tdoee/appbase.svg)](https://github.com/tdoee/appbase/issues)
 [![GitHub forks](https://img.shields.io/github/forks/tdoee/appbase.svg)](https://github.com/tdoee/appbase/network)
 [![GitHub stars](https://img.shields.io/github/stars/tdoee/appbase.svg)](https://github.com/tdoee/appbase/stargazers)
+[![Twitter Follow](https://img.shields.io/twitter/follow/JonDotsoy.svg?style=social&label=Follow%20@JonDotsoy)](https://twitter.com/JonDotsoy)
 
 > ### :warning: This project is in development. Yet there is no release. 
 
