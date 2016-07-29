@@ -1,6 +1,5 @@
 import waterfall from 'async/waterfall'
-// import PathExec from 'path-exec'
-import PathExec from 'C:/Users/alfa30/Repositories/path-exec/index.js'
+import PathExec from 'path-exec'
 
 let symbolUses = Symbol( 'Uses' )
 
