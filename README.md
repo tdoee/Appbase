@@ -1,5 +1,6 @@
 # Appbase :rocket:
 
+[![npm](https://img.shields.io/npm/v/appbase.svg?maxAge=2592000)](https://www.npmjs.com/package/appbase)
 [![GitHub issues](https://img.shields.io/github/issues/tdoee/appbase.svg)](https://github.com/tdoee/appbase/issues)
 [![GitHub forks](https://img.shields.io/github/forks/tdoee/appbase.svg)](https://github.com/tdoee/appbase/network)
 [![GitHub stars](https://img.shields.io/github/stars/tdoee/appbase.svg)](https://github.com/tdoee/appbase/stargazers)
