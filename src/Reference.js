@@ -1,5 +1,4 @@
 import { appbaseSymbol } from './Appbase'
-import mixin from 'mixin'
 
 const __key_name_ref = Symbol('__key_name_ref')
 
