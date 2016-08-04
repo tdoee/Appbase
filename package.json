@@ -1,7 +1,7 @@
 {
   "name": "appbase",
   "title": "Appbase",
-  "version": "0.1.0-beta.4",
+  "version": "0.1.0-beta.5",
   "main": "lib/Appbase.js",
   "engine": {
     "node": ">= 6.2.0"
