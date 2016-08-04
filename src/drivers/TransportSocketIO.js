@@ -2,6 +2,9 @@ import { appbaseSymbol } from '../Appbase'
 import Transport, { ErrorTransportServer } from '../Transport'
 import url from 'url'
 import socketIo from 'socket.io-client'
+import debug from 'debug'
+
+const log = debug('appbase:transport:socketIo')
 
 const makeError = (opts = {}) => {
 	let {
@@ -22,7 +25,7 @@ export class TransportSocketIO extends Transport {
 		let { currentUser = {} } = this.appbase.auth
 		let { tokenId } = currentUser 
 
-		console.log(`use this url ${this.appbase.get('url')}`)
+		log(`use this url ${this.appbase.get('url')}`)
 
 		this.io = socketIo(this.appbase.get('url'), {
 			query: `tokenId=${tokenId}`,

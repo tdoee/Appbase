@@ -1,4 +1,4 @@
-import { appbaseSymbol } from './Appbase'
+import { appbaseSymbol, appbaseTransportSymbol } from './Appbase'
 import url from 'url'
 import EventEmitter from 'events'
 
@@ -79,6 +79,8 @@ export class Transport {
 	/* Capturing a signal from server */
 	value() {return Promise.reject(new DisableElementError(`Transport.value() Is Disabled`))}
 }
+
+Transport.instance = appbaseTransportSymbol
 
 Transport.DISCONNECT = 0
 Transport.CONNECTING = 1
