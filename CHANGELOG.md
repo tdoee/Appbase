@@ -2,6 +2,20 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+## [0.1.0-beta.5]
+### Added
+ - Instece names:
+    - Appbase.instance (`Symbol(Appbase.instance)`)
+    - Transport.instance (`Symbol(Transport.instance)`)
+    - Session.instance (`Symbol(Session.instance)`)
+    - Store.instance (`Symbol(Store.instance)`)
+    - DataBase.instance (`Symbol(DataBase.instance)`)
+    - Auth.instance (`Symbol(Auth.instance)`)
+    - Storage.instance (`Symbol(Storage.instance)`)
+
+## Change
+ - License on Pacakge.json
+
 ## [0.1.0-beta.4]
 ### Added
  - Update the readme file, to add [npmjs][npmjs] style.
