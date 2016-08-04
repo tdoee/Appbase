@@ -1,0 +1,9 @@
+# Database Control de datos
+
+## Flujo directo
+
+Una base de datos da flujo directo es la mas sencilla de trabajar, este provee un acceso simple a cada a dato dentro de una colección.
+
+```
+
+```

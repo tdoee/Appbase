@@ -1,4 +1,4 @@
-import { appbaseSymbol } from './Appbase'
+import { appbaseSymbol, appbaseSessionSymbol } from './Appbase'
 
 // state
 /*
@@ -141,5 +141,7 @@ export class Session {
 		return Promise.resolve()
 	}
 }
+
+Session.instance = appbaseSessionSymbol
 
 export default Session

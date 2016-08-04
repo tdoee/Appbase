@@ -9,14 +9,14 @@ import DataBase from './DataBase'
 import AppbaseError from './AppbaseError'
 import Storage from './Storage'
 
-export const appbaseSymbol = Symbol( 'Appbase' );
+export const appbaseSymbol = Symbol( 'Appbase.instance' );
 export const appbaseOptionsSymbol = Symbol( 'Options' )
-export const appbaseTransportSymbol = Symbol( 'Transport' )
-export const appbaseSessionSymbol = Symbol( 'Session' )
-export const appbaseStoreSymbol = Symbol( 'Store' )
-export const appbaseDatabaseSymbol = Symbol( 'DataBase' )
-export const appbaseAuthSymbol = Symbol( 'Auth' )
-export const appbaseStorageSymbol = Symbol( 'Storage' )
+export const appbaseTransportSymbol = Symbol( 'Transport.instance' )
+export const appbaseSessionSymbol = Symbol( 'Session.instance' )
+export const appbaseStoreSymbol = Symbol( 'Store.instance' )
+export const appbaseDatabaseSymbol = Symbol( 'DataBase.instance' )
+export const appbaseAuthSymbol = Symbol( 'Auth.instance' )
+export const appbaseStorageSymbol = Symbol( 'Storage.instance' )
 
 const versionAppbase = process.env.APPBASE_VERSION
 
@@ -45,6 +45,7 @@ export class Appbase {
 	 */
 	initialize( opts = {} ) {
 		let {
+			keyName,
 			apiKey,
 			url: URL = null,
 			transport: TransportPluginsControl = this.get( 'transport' ),
@@ -70,6 +71,8 @@ export class Appbase {
 		if ( URL ) {
 			this.set( 'url', URL )
 		}
+
+		this.set( 'keyName', keyName )
 
 		// Set option apiKey
 		if ( apiKey ) {
@@ -163,6 +166,8 @@ export class Appbase {
 		return this[ appbaseStorageSymbol ]
 	}
 }
+
+Appbase.instance = appbaseSymbol
 
 /**
  * Experimental function

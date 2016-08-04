@@ -5,7 +5,9 @@ const __key_name_ref = Symbol('__key_name_ref')
 const QuerySqueletonNames = [
 	'orderBy',
 	'limit',
+	'filter',
 	'getNearest',
+	'ignoreContentFrom',/*Experimental: ignoreContentFrom( Array [row], Date )*/
 ]
 
 const QuerySqueletonNamesByReference = [

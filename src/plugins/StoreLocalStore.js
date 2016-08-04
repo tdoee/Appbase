@@ -1,43 +1,82 @@
 import { appbaseSymbol } from '../Appbase'
 import Store from '../Store'
+import debug from 'debug'
 
+const log = debug('appbase:store:localstore')
 
 export class StoreLocalStore extends Store {
 	constructor( app, opts = {} ) {
 		super( app )
 
-		let { prefix = app.get( 'name' ) } = opts
+		let { prefix = `${app.get( 'name' )}-${app.get( 'url' )}-${app.get( 'keyName' )}` } = opts
 		this.prefix = prefix
+		log(`use prefix '${prefix}'`)
+
+		this.RegExpFind = new RegExp( `^${ String( prefix ).replace( /([^a-z0-9])/ig, "\\$1" ) }`, 'i' )
+		log(`use RegExpFind '${this.RegExpFind}'`)
 
 		/* Validate suppot localstore */
 		if ( 'localStorage' in window ) {
-			console.log( 'is window' )
+			log( 'this use Localstore from \'window\'' )
 		} else {
 			throw new Error( 'localstore no support' )
 		}
 	}
 
+	_gen_path(path) {
+		return `${this.prefix}-${path}`
+	}
+
 	set( path, value ) {
-		localStorage.setItem( this.prefix + path, JSON.stringify( value ) )
+		localStorage.setItem( this._gen_path(path), JSON.stringify( value ) )
 	}
+
 	get( path, defaultValue = undefined ) {
-		return ( JSON.parse(localStorage.getItem( this.prefix + path )) || defaultValue )
+		return ( JSON.parse(localStorage.getItem( this._gen_path(path) )) || defaultValue )
 	}
+
 	has( path ) {
-		return localStorage.hasOwnProperty( this.prefix + path )
+		return localStorage.hasOwnProperty( this._gen_path(path) )
 	}
+
 	delete( path, use_prefix = true ) {
-		localStorage.removeItem( ( use_prefix ? this.prefix : '' ) + path )
+		localStorage.removeItem( ( use_prefix ? this._gen_path(path) : path ) )
 	}
-	save() {
-		return Promise.resolve() // Ok Save
+
+	* keys() {
+		yield * Object.keys( localStorage )
+			.filter( e => /* Match? */ ( e.match( this.RegExpFind ) != null ) )
+			.map(e=>e.substring(`${this.prefix}-`.length, Infinity))
 	}
+
+	* values() {
+		let keys = this.keys()
+
+		let c
+		while((c = keys.next()).done === false) {
+			yield this.get(c.value)
+		}
+	}
+
+	* [Symbol.iterator]() {
+		let keys = this.keys()
+
+		let c
+		while((c = keys.next()).done === false) {
+			yield [c.value, this.get(c.value)]
+		}
+	}
+
 	clear() {
-		let regxfind = new RegExp( `^${ String( this.prefix ).replace( /([^a-z0-9])/g, "\\$1" ) }`, 'i' )
-		Object.keys( localStorage )
-			.filter( e => ( e.match( regxfind ) != null ) )
+		/* RegExp que buscara los indices coincidentes con la clave del perfil */
+		log(`Usa el RegExp: ${this.RegExpFind}`)
+		const ndelted = Object.keys( localStorage )
+			.filter( e => /* Match? */ ( e.match( this.RegExpFind ) != null ) )
 			.map( e => this.delete( e, false ) )
+		log(`Deleted ${ndelted} elements`)
+		return Promise.resolve(ndelted)
 	}
+
 }
 
 

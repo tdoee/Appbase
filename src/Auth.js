@@ -1,4 +1,4 @@
-import { appbaseSymbol } from './Appbase'
+import { appbaseSymbol, appbaseAuthSymbol } from './Appbase'
 
 const SymbolCurrentUser = Symbol('Current User')
 
@@ -126,6 +126,14 @@ export class Auth {
 				return Promise.resolve(session)
 			})
 	}
+
+	singOut() {
+		return new Promise((resolve, reject) => {
+			
+		})
+	}
 }
+
+Auth.instance = appbaseAuthSymbol
 
 export default Auth

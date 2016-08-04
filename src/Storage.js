@@ -1,4 +1,4 @@
-import { appbaseSymbol } from './Appbase'
+import { appbaseSymbol, appbaseStorageSymbol } from './Appbase'
 import ReferenceStorage from './ReferenceStorage'
 
 /*
@@ -18,5 +18,7 @@ export class Storage {
 		return new ReferenceStorage(this.appbase, refName)
 	}
 }
+
+Storage.instance = appbaseStorageSymbol
 
 export default Storage

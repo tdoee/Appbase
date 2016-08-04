@@ -1,4 +1,4 @@
-import { appbaseSymbol } from './Appbase'
+import { appbaseSymbol, appbaseDatabaseSymbol } from './Appbase'
 import Reference from './Reference'
 
 export class DataBase {
@@ -18,5 +18,7 @@ export class DataBase {
 	}
 
 }
+
+DataBase.instance = appbaseDatabaseSymbol
 
 export default DataBase
