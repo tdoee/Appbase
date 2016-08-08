@@ -11,7 +11,7 @@ Write your project from frontend.
 [![GitHub pull requests](https://img.shields.io/github/issues-pr/tdoee/appbase.svg)](https://github.com/tdoee/appbase)
 [![GitHub closed pull requests](https://img.shields.io/github/issues-pr-closed/tdoee/appbase.svg)](https://github.com/tdoee/appbase)
 [![Bountysource](https://img.shields.io/bountysource/team/tdoee/activity.svg?maxAge=2592000)](https://www.bountysource.com/teams/tdoee)
-[![license](https://img.shields.io/github/license/tdoee/appbase.svg?maxAge=2592003)](https://github.com/tdoee/appbase)
+[![license](https://img.shields.io/github/license/tdoee/appbase.svg?maxAge=2592000)](https://github.com/tdoee/appbase)
 
 > ### :warning: This project is in development. Yet there is no release.    
 
