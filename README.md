@@ -13,8 +13,6 @@ Write your project from frontend.
 [![Bountysource](https://img.shields.io/bountysource/team/tdoee/activity.svg?maxAge=2592000)](https://www.bountysource.com/teams/tdoee)
 [![license](https://img.shields.io/github/license/tdoee/appbase.svg?maxAge=2592000)](https://github.com/tdoee/appbase)
 
-> ### :warning: This project is in development. Yet there is no release.    
-
 ![Appbase Background by tdoee][]
 
 ## Documentación
