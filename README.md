@@ -2,16 +2,16 @@
 Write your project from frontend.
 
 [![npm](https://img.shields.io/npm/v/appbase.svg?maxAge=2592000)](https://www.npmjs.com/package/appbase)
-[![GitHub release](https://img.shields.io/github/release/tdoee/appbase.svg?maxAge=2592001)](https://github.com/tdoee/appbase)
+[![GitHub release](https://img.shields.io/github/release/tdoee/appbase.svg?maxAge=2592001)](https://github.com/tdoee/Appbase/releases)
 [![GitHub issues](https://img.shields.io/github/issues/tdoee/appbase.svg)](https://github.com/tdoee/appbase/issues)
-[![GitHub closed issues](https://img.shields.io/github/issues-closed/tdoee/appbase.svg?maxAge=2592000)](https://github.com/tdoee/appbase/issues)
+[![GitHub closed issues](https://img.shields.io/github/issues-closed/tdoee/appbase.svg?maxAge=2592000)](https://github.com/tdoee/appbase/issues?q=is%3Aissue+is%3Aclosed)
 [![GitHub forks](https://img.shields.io/github/forks/tdoee/appbase.svg)](https://github.com/tdoee/appbase/network)
 [![GitHub stars](https://img.shields.io/github/stars/tdoee/appbase.svg)](https://github.com/tdoee/appbase/stargazers)
 [![Twitter Follow](https://img.shields.io/twitter/follow/JonDotsoy.svg?style=social&label=Follow%20@JonDotsoy)](https://twitter.com/JonDotsoy)
-[![GitHub pull requests](https://img.shields.io/github/issues-pr/tdoee/appbase.svg)](https://github.com/tdoee/appbase)
-[![GitHub closed pull requests](https://img.shields.io/github/issues-pr-closed/tdoee/appbase.svg)](https://github.com/tdoee/appbase)
+[![GitHub pull requests](https://img.shields.io/github/issues-pr/tdoee/appbase.svg)](https://github.com/tdoee/Appbase/pulls)
+[![GitHub closed pull requests](https://img.shields.io/github/issues-pr-closed/tdoee/appbase.svg)](https://github.com/tdoee/Appbase/pulls?q=is%3Apr+is%3Aclosed)
 [![Bountysource](https://img.shields.io/bountysource/team/tdoee/activity.svg?maxAge=2592000)](https://www.bountysource.com/teams/tdoee)
-[![license](https://img.shields.io/github/license/tdoee/appbase.svg?maxAge=2592000)](https://github.com/tdoee/appbase)
+[![license](https://img.shields.io/github/license/tdoee/appbase.svg?maxAge=2592000)](https://creativecommons.org/licenses/by/4.0/)
 
 ![Appbase Background by tdoee][]
 
