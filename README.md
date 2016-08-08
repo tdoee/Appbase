@@ -31,7 +31,7 @@ npm i --save appbase
 > [NPM] Package <https://www.npmjs.com/package/appbase>
 
 ## License
-This project is undere a [Creative Commons License][LICENSE].
+<a rel="license" href="http://creativecommons.org/licenses/by/4.0/"><img alt="Licencia Creative Commons" style="border-width:0" src="https://i.creativecommons.org/l/by/4.0/80x15.png" /></a><br /><span xmlns:dct="http://purl.org/dc/terms/" href="http://purl.org/dc/dcmitype/InteractiveResource" property="dct:title" rel="dct:type">Appbase By Tdoee</span> por <a xmlns:cc="http://creativecommons.org/ns#" href="http://tdoee.com" property="cc:attributionName" rel="cc:attributionURL">Tdoee SpA</a> se distribuye bajo una <a rel="license" href="http://creativecommons.org/licenses/by/4.0/">Licencia Creative Commons Atribución 4.0 Internacional</a>.<br />Basada en una obra en <a xmlns:dct="http://purl.org/dc/terms/" href="https://github.com/tdoee/Appbase" rel="dct:source">https://github.com/tdoee/Appbase</a>.
 
 
 [Appbase Background by tdoee]: doc/assets/Appbase%20Background.png "Appbase by tdoee"
