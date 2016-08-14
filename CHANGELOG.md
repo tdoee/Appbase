@@ -2,6 +2,10 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+## [0.1.0-beta.6]
+### Fixed
+ - Add Preset [ES2015](https://www.npmjs.com/package/babel-preset-es2015)
+
 ## [0.1.0-beta.5]
 ### Added
  - Instece names:
