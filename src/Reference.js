@@ -7,6 +7,7 @@ const QuerySqueletonNames = [
 	'limit',
 	'filter',
 	'getNearest',
+	'getJoin',
 	'ignoreContentFrom',/*Experimental: ignoreContentFrom( Array [row], Date )*/
 ]
 
