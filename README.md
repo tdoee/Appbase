@@ -2,7 +2,7 @@
 Write your project from frontend.
 
 [![codecov](https://codecov.io/gh/tdoee/Appbase/branch/master/graph/badge.svg)](https://codecov.io/gh/tdoee/Appbase)
-[![npm](https://img.shields.io/npm/v/appbase.svg?maxAge=2592000)](https://www.npmjs.com/package/appbase)
+[![npm](https://img.shields.io/npm/v/appbase.svg?maxAge=2592001)](https://www.npmjs.com/package/appbase)
 [![GitHub release](https://img.shields.io/github/release/tdoee/appbase.svg?maxAge=2592001)](https://github.com/tdoee/Appbase/releases)
 [![GitHub issues](https://img.shields.io/github/issues/tdoee/appbase.svg)](https://github.com/tdoee/appbase/issues)
 [![GitHub closed issues](https://img.shields.io/github/issues-closed/tdoee/appbase.svg?maxAge=2592000)](https://github.com/tdoee/appbase/issues?q=is%3Aissue+is%3Aclosed)
